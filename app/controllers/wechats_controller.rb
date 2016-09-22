@@ -10,15 +10,15 @@ class WechatsController < ApplicationController
   on :text do |request|
     request.reply.text '我们收到您的留言啦。说不定一会儿小编就会联系您哒~
     
-    北京航空航天大学学生会竭诚为你服务mo-爱心'
+    北京航空航天大学学生会竭诚为你服务 /:heart'
   end
 
   on :event, with: 'subscribe' do |request|
-    request.reply.text '感谢您关注“北京航空航天大学学生会”微信平台mo-玫瑰！
+    request.reply.text '感谢您关注“北京航空航天大学学生会”微信平台/:rose！
     
     点击下方“校&汇”浏览校园生活信息。实用功能栏查询校车校历。
     
-    北京航空航天大学学生会竭诚为您服务mo-爱心'
+    北京航空航天大学学生会竭诚为您服务/:heart'
   end
 
   # menu response
