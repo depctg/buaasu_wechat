@@ -87,6 +87,10 @@ task :deploy => :environment do
   end
 end
 
+task :reset => :environment do
+  invoke 'rake[db:migrate:reset]'
+end
+
 # For help in making your deploy script, see the Mina documentation:
 #
 #  - http://nadarei.co/mina

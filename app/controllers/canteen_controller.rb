@@ -1,9 +1,11 @@
 class CanteenController < ApplicationController
   def use
-    if CanteenDegist.find_by(degist: params[:degist])
+    degist =  CanteenDegist.find_by(degist: params[:degist])
+    if degist.is_used
       render 'canteen/error'
     else
-      CanteenDegist.create(degist: params[:degist])
+      degist.is_used = true
+      degist.save
       render 'canteen/success'
     end
   end
