@@ -10,9 +10,9 @@ require 'mina/rvm'    # for rvm support. (http://rvm.io)
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
-set :domain, 'suapi.depct.cn'
-set :deploy_to, '/var/www/buaasu_wechat_api'
-set :repository, 'git@github.com:depctg/buaasu_wechat_api.git'
+set :domain, 'su.depct.cn'
+set :deploy_to, '/var/www/buaasu_wechat'
+set :repository, 'git@github.com:depctg/buaasu_wechat.git'
 set :branch, 'master'
 
 # For system-wide RVM install.
