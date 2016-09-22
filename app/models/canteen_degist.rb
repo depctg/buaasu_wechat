@@ -1,0 +1,2 @@
+class CanteenDegist < ApplicationRecord
+end

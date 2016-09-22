@@ -1,0 +1,27 @@
+button:
+ -
+  type: "view"
+  name: "校&汇"
+  url : "http://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=1&sn=ac1b065a194920f3cafa5b361a0d14b9#wechat_redirect"
+ -
+  name: "实用功能"
+  sub_button:
+   -
+    type: "media_id"
+    name: "校历安排"
+    media_id: "EIWqR8ExGtoBOc6OgzriaawzlSjHibUUhMfDcWKEa8zSqzEVpNebiaibibPV6HMlJlrCDqEMLgAWK531UA0rnvFt9Lg"
+   -
+    type: "media_id"
+    name: "校车摆渡车"
+    media_id: "EIWqR8ExGtrJGiavOKnjcCjFQygGEGt83qQqqJKa43jbMHvD6ictbMmAwPII34QexLicOL1vU2JQ4j17sibicNe5zcQ"
+ -
+  name: "权心权意"
+  sub_button:
+   -
+    type: "view"
+    name: "权益调查"
+    url: "http://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=3&sn=9fa6c6ea30cef2c7011094bad6de1499#wechat_redirect"
+   -
+    type: "view"
+    name: "权益日志"
+    url: "http://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=2&sn=c6989be293cb4b9f71040d41e8254cbe#wechat_redirect"
