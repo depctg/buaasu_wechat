@@ -1,0 +1,43 @@
+# time format: "pm 9:00" => 2100, without prefix 0
+# date format: %m%d, with prefix 0
+special:
+  "0830-0831":
+    shuttle_sha:
+      - 1200
+      - 1330
+      - 1400
+      - 1500
+      - 2359
+    shuttle_sta:
+      - 1210
+      - 1340
+    bus_sha:
+      - 700
+    bus_xue:
+      - 830
+friday:
+  shuttle_sha:
+    - 1200
+    - 1330
+    - 1400
+    - 1500
+  shuttle_sta:
+    - 1210
+    - 1340
+  bus_sha:
+    - 700
+  bus_xue:
+    - 830
+weekend:
+  shuttle_sha:
+    - 1200
+    - 1330
+    - 1400
+    - 1500
+  shuttle_sta:
+    - 1210
+    - 1340
+  bus_sha:
+    - 700
+  bus_xue:
+    - 830
