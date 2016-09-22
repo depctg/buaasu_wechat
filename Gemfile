@@ -35,6 +35,8 @@ gem 'carrierwave'
 
 # Use mini_magick to clip images
 gem 'mini_magick'
+# Use rQRCode to gen QR Code
+gem 'rqrcode'
 
 # Use http to make http requests
 gem 'http'
