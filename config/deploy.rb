@@ -88,7 +88,9 @@ task :deploy => :environment do
 end
 
 task :reset => :environment do
-  invoke 'rake[db:migrate:reset]'
+  queue! %[export DISABLE_DATABASE_ENVIRONMENT_CHECK=1]
+  invoke :'rake[db:migrate:reset]'
+  queue! %[export DISABLE_DATABASE_ENVIRONMENT_CHECK=0]
 end
 
 # For help in making your deploy script, see the Mina documentation:

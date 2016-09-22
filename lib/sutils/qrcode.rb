@@ -13,5 +13,23 @@ module Sutils::Qrcode
   def base64encode(idf)
     Base64.encode64(idf)[0...-1]
   end
+
+  def add_background(qr_file, bg_file, size, x, y, option = {})
+
+    bg = MiniMagick::Image.open(bg_file)
+    qr = MiniMagick::Image.open(qr_file)
+
+    qr.resize "#{size}x#{size}"
+    res = bg.composite(qr, "png") do |c|
+      c.compose  "Over"
+      c.geometry "+#{x}+#{y}"
+    end
+
+    res.write qr_file
+
+    return qr_file
+
+  end
+
 end
 

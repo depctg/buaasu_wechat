@@ -1,7 +1,11 @@
 class WechatsController < ApplicationController
   include Sutils::Schoolbus
   include Sutils::Qrcode
+  include Sutils::WechatHelper
   wechat_responder
+
+  # constants, access keys
+  IMG_CALENDER = 'NjRvKRIAWWC3esDN3eGYw21MvKzGBtDRKLMflOX2jeE'
 
   # activity => carteen
   on :text, with: /抽奖/ do |request|
@@ -31,12 +35,17 @@ class WechatsController < ApplicationController
       if (total_ticket >= 2000)
         request.reply.text "优惠券已经被抽完了！"
       else
-        filename = base64qr(user.open_id)
-        r = Wechat.api.media_create "image", filename
-        CanteenDegist.create(degist: degist_str, is_picked: true) 
-        # TODO: add hint image/ 
-        # Use No. to hint
-        request.reply.image r['media_id']
+        # 50% to get a ticket
+        if [true, false].sample
+          CanteenDegist.create(degist: degist_str, is_picked: true) 
+          filename = base64qr(user.open_id)
+          # TODO: add hint image/ 
+          # Use No. to hint
+          request.reply.image temp_img(filename)
+        else
+          CanteenDegist.create(degist: degist_str, is_picked: false)
+          request.reply.text "抱歉你没有抽中.."
+        end
       end
     end
 
@@ -50,7 +59,6 @@ class WechatsController < ApplicationController
     else
       request.reply.text "您没有待使用的优惠券！"
     end
-
   end
 
   # response
@@ -71,7 +79,7 @@ class WechatsController < ApplicationController
     
 点击下方“校&汇”浏览校园生活信息。实用功能栏查询校车校历。
     
-北京航空航天大学学生会竭诚为您服务/:heart'
+北京航空航天大学学生会竭诚为您服务 /:heart'
   end
 
   # menu response
@@ -84,7 +92,7 @@ class WechatsController < ApplicationController
   end
 
   on :click, with: 'CALENDER' do |request|
-    request.reply.image 'NjRvKRIAWWC3esDN3eGYw21MvKzGBtDRKLMflOX2jeE'
+    request.reply.image IMG_CALENDER
   end
 
 end
