@@ -12,7 +12,7 @@ module Sutils::Qrcode
 
   def qr(content)
     filename = "/tmp/#{content}-qrcode.png"
-    qrcode = RQRCode::QRCode.new(filename)
+    qrcode = RQRCode::QRCode.new(content)
     qrcode.as_png(
       file: filename, border_modules: 1
     )

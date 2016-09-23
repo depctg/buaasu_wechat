@@ -45,6 +45,7 @@ class WechatsController < ApplicationController
           request.reply.image temp_image(filename)
         else
           CanteenDegist.create(degist: degist_str, is_picked: false)
+          # TODO: Replace this with an image
           request.reply.text "抱歉你没有抽中.."
         end
       end
@@ -56,7 +57,6 @@ class WechatsController < ApplicationController
   # on :click, with: 'CANTEEN' do |request|
     degist = CanteenDegist.find_by(degist: base64encode(request[:FromUserName])) 
     if degist && degist.is_picked && (not degist.is_used)
-      # TODO: return EXACT the ticket
       filename = qr(degist.degist)
       filename = add_background(filename, 'lib/assets/image/canteen_bg.png', 405, 26, 149)
       request.reply.image temp_image(filename)
