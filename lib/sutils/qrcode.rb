@@ -12,7 +12,7 @@ module Sutils::Qrcode
 
   def qr(content)
     filename = "/tmp/#{content}-qrcode.png"
-    qrcode = RQRCode::QRCode.new(content)
+    qrcode = RQRCode::QRCode.new(USE_URL + content)
     qrcode.as_png(
       file: filename, border_modules: 1
     )
@@ -29,7 +29,7 @@ module Sutils::Qrcode
     qr = MiniMagick::Image.open(qr_file)
 
     qr.resize "#{size}x#{size}"
-    res = bg.composite(qr, "png") do |c|
+    res = bg.composite(qr, "jpeg") do |c|
       c.compose  "Over"
       c.geometry "+#{x}+#{y}"
     end
