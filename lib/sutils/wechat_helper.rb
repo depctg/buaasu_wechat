@@ -7,7 +7,7 @@ module Sutils::WechatHelper
   end
 
   def temp_image(file)
-    r = Wechat.api.media_create "image", filename
+    r = Wechat.api.media_create "image", file
     return r['media_id']
   end
 end
