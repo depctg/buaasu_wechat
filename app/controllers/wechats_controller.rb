@@ -41,7 +41,7 @@ class WechatsController < ApplicationController
         if true
           CanteenDegist.create(degist: degist_str, is_picked: true) 
           filename = base64qr(user.open_id)
-          filename = add_background(filename, 'lib/assets/image/canteen_bg.png', 405, 26, 149)
+          filename = add_background(filename, 'lib/assets/image/canteen_bg.jpeg', 405, 26, 149)
           request.reply.image temp_image(filename)
         else
           CanteenDegist.create(degist: degist_str, is_picked: false)
@@ -58,7 +58,7 @@ class WechatsController < ApplicationController
     degist = CanteenDegist.find_by(degist: base64encode(request[:FromUserName])) 
     if degist && degist.is_picked && (not degist.is_used)
       filename = qr(degist.degist)
-      filename = add_background(filename, 'lib/assets/image/canteen_bg.png', 405, 26, 149)
+      filename = add_background(filename, 'lib/assets/image/canteen_bg.jpeg', 405, 26, 149)
       request.reply.image temp_image(filename)
     else
       request.reply.text "您没有待使用的优惠券！"
