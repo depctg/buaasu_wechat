@@ -10,6 +10,15 @@ module Sutils::Qrcode
     return filename
   end
 
+  def qr(content)
+    filename = "/tmp/#{content}-qrcode.png"
+    qrcode = RQRCode::QRCode.new(filename)
+    qrcode.as_png(
+      file: filename, border_modules: 1
+    )
+    return filename
+  end
+
   def base64encode(idf)
     Base64.encode64(idf)[0...-1]
   end

@@ -39,8 +39,7 @@ class WechatsController < ApplicationController
         if [true, false].sample
           CanteenDegist.create(degist: degist_str, is_picked: true) 
           filename = base64qr(user.open_id)
-          # TODO: add hint image/ 
-          # Use No. to hint
+          filename = add_background(filename, 'lib/assets/image/canteen_bg.jpeg', 405, 26, 149)
           request.reply.image temp_img(filename)
         else
           CanteenDegist.create(degist: degist_str, is_picked: false)
@@ -51,10 +50,13 @@ class WechatsController < ApplicationController
 
   end
 
-  on :click, with: 'CANTEEN' do |request|
+  on :text, with: /查看优惠券/ do |request|
+  # on :click, with: 'CANTEEN' do |request|
     degist = CanteenDegist.find_by(degist: base64encode(user.open_id)) 
     if degist && degist.is_picked && (not degist.is_used)
       # TODO: return EXACT the ticket
+      filename = qr(degist.degist)
+      filename = add_background(filename, 'lib/assets/image/canteen_bg.jpeg', 405, 26, 149)
       request.reply.text "您有一张待使用的优惠券！"
     else
       request.reply.text "您没有待使用的优惠券！"
