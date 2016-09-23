@@ -37,10 +37,11 @@ class WechatsController < ApplicationController
       else
         # 50% to get a ticket
         # TODO 50%
-        if [true].sample
+        # if [false, true].sample
+        if true
           CanteenDegist.create(degist: degist_str, is_picked: true) 
           filename = base64qr(user.open_id)
-          filename = add_background(filename, 'lib/assets/image/canteen_bg.jpeg', 405, 26, 149)
+          # filename = add_background(filename, 'lib/assets/image/canteen_bg.jpeg', 405, 26, 149)
           request.reply.image temp_image(filename)
         else
           CanteenDegist.create(degist: degist_str, is_picked: false)
