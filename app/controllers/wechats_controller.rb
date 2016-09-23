@@ -41,7 +41,7 @@ class WechatsController < ApplicationController
           CanteenDegist.create(degist: degist_str, is_picked: true) 
           filename = base64qr(user.open_id)
           filename = add_background(filename, 'lib/assets/image/canteen_bg.jpeg', 405, 26, 149)
-          request.reply.image temp_img(filename)
+          request.reply.image temp_image(filename)
         else
           CanteenDegist.create(degist: degist_str, is_picked: false)
           request.reply.text "抱歉你没有抽中.."
@@ -58,7 +58,7 @@ class WechatsController < ApplicationController
       # TODO: return EXACT the ticket
       filename = qr(degist.degist)
       filename = add_background(filename, 'lib/assets/image/canteen_bg.jpeg', 405, 26, 149)
-      request.reply.image temp_img(filename)
+      request.reply.image temp_image(filename)
     else
       request.reply.text "您没有待使用的优惠券！"
     end
