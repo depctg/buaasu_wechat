@@ -24,10 +24,10 @@ class WechatsController < ApplicationController
         if degist.is_used
           request.reply.text "您已经兑换过了！"
         else
-          request.reply.text "您已经领取，请到食堂三楼北水吧处兑换！"
+          request.reply.text "您已经领取，请到食堂三楼北水吧处兑换！回复 查看优惠券 查看您的优惠券。"
         end
       else
-        request.reply.text "您已经抽过了.."
+        request.reply.text "您已经抽过了，但并没有中奖！"
       end
     else
       total_ticket = CanteenDegist.where(is_picked: true).count
@@ -50,7 +50,7 @@ class WechatsController < ApplicationController
 
   end
 
-  on :click, with: 'CANTEEN' do |request|
+  on :text, with: '查看优惠券' do |request|
     degist = CanteenDegist.find_by(degist: base64encode(request[:FromUserName])) 
     if degist
       if degist.is_picked 
@@ -62,7 +62,24 @@ class WechatsController < ApplicationController
           request.reply.text "您的优惠券已经使用过了！"
         end
       else
-        request.reply.text "您并没有抽中优惠券！"
+        request.reply.text "您已经抽过了，但并没有中奖！"
+      end
+    else
+      request.reply.text "您还没有抽奖！"
+    end
+  end
+
+  on :click, with: 'CANTEEN' do |request|
+    degist = CanteenDegist.find_by(degist: base64encode(request[:FromUserName])) 
+    if degist
+      if degist.is_picked 
+        if not degist.is_used
+          request.reply.text "您已经领取，请到食堂三楼北水吧处兑换！回复 查看优惠券 查看您的优惠券。"
+        else
+          request.reply.text "您的优惠券已经使用过了！"
+        end
+      else
+        request.reply.text "您已经抽过了，但并没有中奖！"
       end
     else
       total_ticket = CanteenDegist.where(is_picked: true).count
