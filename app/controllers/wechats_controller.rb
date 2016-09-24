@@ -27,7 +27,7 @@ class WechatsController < ApplicationController
           request.reply.text "已经领取，但还没有兑换！"
         end
       else
-        request.reply.text "您并没有抽中！"
+        request.reply.text "您已经抽过了.."
       end
     else
       total_ticket = CanteenDegist.where(is_picked: true).count
@@ -35,8 +35,8 @@ class WechatsController < ApplicationController
       if (total_ticket >= 2000)
         request.reply.text "优惠券已经被抽完了！"
       else
-        # 50% to get a ticket
-        if [false, true].sample
+        # 33% to get a ticket
+        if [false, false, true].sample
           CanteenDegist.create(degist: degist_str, is_picked: true) 
           filename = base64qr(user.open_id)
           filename = add_background(filename, 'lib/assets/image/canteen_bg.jpeg', 405, 26, 149)
@@ -52,12 +52,25 @@ class WechatsController < ApplicationController
 
   on :click, with: 'CANTEEN' do |request|
     degist = CanteenDegist.find_by(degist: base64encode(request[:FromUserName])) 
-    if degist && degist.is_picked && (not degist.is_used)
-      filename = qr(degist.degist)
-      filename = add_background(filename, 'lib/assets/image/canteen_bg.jpeg', 405, 26, 149)
-      request.reply.image temp_image(filename)
+    if degist
+      if degist.is_picked && (not degist.is_used)
+        filename = qr(degist.degist)
+        filename = add_background(filename, 'lib/assets/image/canteen_bg.jpeg', 405, 26, 149)
+        request.reply.image temp_image(filename)
+      else
+        request.reply.text "您的优惠券已经使用过了！"
+      end
     else
-      request.reply.text "您没有待使用的优惠券！"
+      # 33% to get a ticket
+      if [false, false, true].sample
+        CanteenDegist.create(degist: base64encode(request[:FromUserName]), is_picked: true) 
+        filename = base64qr(request[:FromUserName])
+        filename = add_background(filename, 'lib/assets/image/canteen_bg.jpeg', 405, 26, 149)
+        request.reply.image temp_image(filename)
+      else
+        CanteenDegist.create(degist: degist_str, is_picked: false)
+        request.reply.image "NjRvKRIAWWC3esDN3eGYw15W1xbymgUJNJtuGZ4aWMs"
+      end
     end
   end
 

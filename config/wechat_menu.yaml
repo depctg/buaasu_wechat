@@ -1,11 +1,15 @@
 button:
  -
-  type: "view"
-  name: "校&汇"
-  url : "http://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=1&sn=ac1b065a194920f3cafa5b361a0d14b9#wechat_redirect"
+  type: "click"
+  name: "优惠券"
+  key: "CANTEEN"
  -
   name: "实用功能"
   sub_button:
+   -
+    type: "view"
+    name: "校&汇"
+    url : "http://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=1&sn=ac1b065a194920f3cafa5b361a0d14b9#wechat_redirect"
    -
     type: "click"
     name: "校历安排"
