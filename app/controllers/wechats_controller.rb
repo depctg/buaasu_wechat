@@ -36,25 +36,21 @@ class WechatsController < ApplicationController
         request.reply.text "优惠券已经被抽完了！"
       else
         # 50% to get a ticket
-        # TODO 50%
-        # if [false, true].sample
-        if true
+        if [false, true].sample
           CanteenDegist.create(degist: degist_str, is_picked: true) 
           filename = base64qr(user.open_id)
           filename = add_background(filename, 'lib/assets/image/canteen_bg.jpeg', 405, 26, 149)
           request.reply.image temp_image(filename)
         else
           CanteenDegist.create(degist: degist_str, is_picked: false)
-          # TODO: Replace this with an image
-          request.reply.text "抱歉你没有抽中.."
+          request.reply.image "NjRvKRIAWWC3esDN3eGYw15W1xbymgUJNJtuGZ4aWMs"
         end
       end
     end
 
   end
 
-  on :text, with: /查看优惠券/ do |request|
-  # on :click, with: 'CANTEEN' do |request|
+  on :click, with: 'CANTEEN' do |request|
     degist = CanteenDegist.find_by(degist: base64encode(request[:FromUserName])) 
     if degist && degist.is_picked && (not degist.is_used)
       filename = qr(degist.degist)
