@@ -77,7 +77,7 @@ class WechatsController < ApplicationController
         filename = add_background(filename, 'lib/assets/image/canteen_bg.jpeg', 405, 26, 149)
         request.reply.image temp_image(filename)
       else
-        CanteenDegist.create(degist: degist_str, is_picked: false)
+        CanteenDegist.create(degist: base64encode(request[:FromUserName]), is_picked: false)
         request.reply.image "NjRvKRIAWWC3esDN3eGYw15W1xbymgUJNJtuGZ4aWMs"
       end
     end
