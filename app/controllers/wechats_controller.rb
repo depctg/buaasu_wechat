@@ -22,9 +22,9 @@ class WechatsController < ApplicationController
     if degist
       if degist.is_picked
         if degist.is_used
-          request.reply.text "已经兑换过了！"
+          request.reply.text "您已经兑换过了！"
         else
-          request.reply.text "已经领取，但还没有兑换！"
+          request.reply.text "您已经领取，请到食堂三楼北水吧处兑换！"
         end
       else
         request.reply.text "您已经抽过了.."
