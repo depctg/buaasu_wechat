@@ -6,6 +6,7 @@ class WechatsController < ApplicationController
 
   # constants, access keys
   IMG_CALENDER = 'NjRvKRIAWWC3esDN3eGYw21MvKzGBtDRKLMflOX2jeE'
+  IMG_SCHOOLBUS = 'NjRvKRIAWWC3esDN3eGYw5V3nM0uvncD1yfGTO6tUwE'
 
   # activity => carteen
   on :text, with: /抽奖/ do |request|
@@ -103,7 +104,7 @@ class WechatsController < ApplicationController
   # response
 
   on :text, with: /校车/ do |request|
-    request.reply.text next_bus
+    request.reply.image IMG_SCHOOLBUS
   end
 
   # default response
@@ -123,7 +124,7 @@ class WechatsController < ApplicationController
 
   # menu response
   on :click, with: 'SCHOOLBUS' do |request|
-    request.reply.text '功能正在开发中..'
+    request.reply.image IMG_SCHOOLBUS
   end
 
   on :click, with: 'FEEDBACK' do |request|

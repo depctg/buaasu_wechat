@@ -15,9 +15,9 @@ button:
     name: "校历安排"
     key: "CALENDER"
    -
-    type: "view"
+    type: "click"
     name: "校车摆渡车"
-    url: "http://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=1&sn=ac1b065a194920f3cafa5b361a0d14b9#wechat_redirect"
+    key: "SCHOOLBUS"
  -
   name: "权心权意"
   sub_button:
