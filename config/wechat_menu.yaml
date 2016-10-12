@@ -1,15 +1,11 @@
 button:
  -
-  type: "click"
-  name: "优惠券"
-  key: "CANTEEN"
+  type: "view"
+  name: "校&汇"
+  url : "http://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=1&sn=ac1b065a194920f3cafa5b361a0d14b9#wechat_redirect"
  -
   name: "实用功能"
   sub_button:
-   -
-    type: "view"
-    name: "校&汇"
-    url : "http://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=1&sn=ac1b065a194920f3cafa5b361a0d14b9#wechat_redirect"
    -
     type: "click"
     name: "校历安排"
@@ -19,13 +15,6 @@ button:
     name: "校车摆渡车"
     key: "SCHOOLBUS"
  -
+  type: "view"
   name: "权心权意"
-  sub_button:
-   -
-    type: "view"
-    name: "权益调查"
-    url: "http://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=3&sn=9fa6c6ea30cef2c7011094bad6de1499#wechat_redirect"
-   -
-    type: "view"
-    name: "权益日志"
-    url: "http://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=2&sn=c6989be293cb4b9f71040d41e8254cbe#wechat_redirect"
+  url: "http://front.xiaoxiao.la/index.html#organization/2c8afcde-dee0-486d-bb0a-4e6bc009ed0b/index&pid=cc618fbb-888e-4163-8a2f-ea734a28e3b0"
