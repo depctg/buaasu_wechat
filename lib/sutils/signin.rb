@@ -1,9 +1,9 @@
 module Sutils::Signin
 
-  def gen_picture(signrecord, options={})
+  def gen_picture(user, options={})
 
     def gen_filename
-      "/var/tmp/#{signrecord.id}_#{Time.now.day}.jpg"
+      "/tmp/signin/#{user.id}_#{Time.now.day}.jpg"
     end
 
     # default options
@@ -16,7 +16,7 @@ module Sutils::Signin
     options[:number_size] ||= 70
     options[:template] ||= "template_#{Time.now.strftime('%D')}.jpg"
 
-    img_head = MiniMagick::Image.open(signrecord.avatar)
+    img_head = MiniMagick::Image.open(user.avatar.current_path)
     img_template = MiniMagick::Image.open(options[:template])
     img_mask = MiniMagick::Image.open(options[:mask]) 
     # img_template.pa
@@ -32,12 +32,12 @@ module Sutils::Signin
       i.pointsize options[:number_size]
       i.fill 'white'
       i.draw "text #{options[:time_position]} \"#{Time.now.strftime("%H:%M")}\""
-      i.draw "text #{options[:day_position]} \"#{signrecord.day}\""
+      i.draw "text #{options[:day_position]} \"#{user.sign_record.day}\""
     end
 
     result = gen_filename
     img_template.write result
-    result
+    return result
   end
 
 end

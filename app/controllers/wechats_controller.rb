@@ -78,6 +78,8 @@ class WechatsController < ApplicationController
 
   # Tests
   on :text, with: /测试签到/ do |request|
+    include Sutils::Signin
+
     user = User.find_by(open_id: request[:FromUserName])
     if user.nil?
       # create User here
@@ -92,8 +94,21 @@ class WechatsController < ApplicationController
       user.save
     end
 
+    if user.sign_record.nil?
+      user.sign_record = SignRecord.new
+      user.sign_record.days = []
+      user.sign_record.day = 0
+    end
+
+    # if is valid
+    user.sign_record.days << Time.now
+    user.day += 1
+
+    user.save
+
     # gen picture here
-    request.reply.text user.avatar.url
+    filename = gen_picture user
+    request.reply.text filename
   end
 
   # default response
