@@ -1,4 +1,4 @@
 class SignRecord < ApplicationRecord
-  belongs_to :user
+  belongs_to :user, autosave: true
   serialize :days
 end
