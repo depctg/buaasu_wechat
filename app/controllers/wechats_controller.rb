@@ -97,15 +97,72 @@ class WechatsController < ApplicationController
     end
 
     # if is valid
-    user.sign_record.days ||= []
-    user.sign_record.days << Time.now
-    user.sign_record.day ||= 0
-    user.sign_record.day += 1
+    # And if 
+    # Save last date and last time || or last datetime
+    # select * from info where dateTime>'2001-12-01 00:00:00' and dateTime<'2001-12-01 23:59:59'
+    user_status = false
+    user_msg = nil
+    #
+    now_t = Time.now
+    start_t = "#{now_t.strftime('%Y-%m-%d')} 05:00:00 +0800".to_time
+    end_t = "#{now_t.strftime('%Y-%m-%d')} 10:00:00 +0800".to_time
+    if start_t <= now_t && now_t < end_t
+      lastdate = (Time.now - 24).strftime('%Y-%m-%d')
+      if user.sign_record.day == 0
+        user_status = true
+        user.sign_record.days ||= []
+        user.sign_record.days << Time.now
+        user.sign_record.day += 1
+      elsif user.sign_record.days.last > "#{lastdate} 23:59:59 +0800".to_time
+        user_status = false
+        user_msg = "您今天已经签过到了"
+      elsif user.sign_record.days.last < "#{lastdate} 23:59:59 +0800".to_time
+        user_status = true
+        user.sign_record.days << Time.now
+        user.sign_record.day = 1
+      else
+        user_status = true
+        user.sign_record.days << Time.now
+        user.sign_record.day += 1
+      end
+    else
+      user_status = false
+      user_msg = "现在不在签到时间。"
+    end
 
     user.save
 
     # gen picture here
-    request.reply.image temp_image(gen_picture(user))
+    if user_status
+      request.reply.image temp_image(gen_picture(user))
+    else
+      request.reply.text user_msg
+    end
+
+  end
+
+  on :text, with: /签到注册/ do |request|
+
+    user = User.find_by(open_id: request[:FromUserName])
+    if user.nil?
+      # create User here
+      user = User.new
+      user.open_id = request[:FromUserName]
+      user.remote_avatar_url = Wechat.api.user(request[:FromUserName])['headimgurl']
+    elsif user.avatar.file.nil?
+      user.remote_avatar_url = Wechat.api.user(request[:FromUserName])['headimgurl']
+    end
+
+    if user.sign_record.nil?
+      user.sign_record = SignRecord.new
+      user.sign_record.days = []
+      user.sign_record.day = 0
+
+      user.save
+    else
+      request.reply.text "已经注册过了!"
+    end
+
   end
 
   # default response
