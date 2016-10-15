@@ -9,12 +9,14 @@ module Sutils::Signin
     # default options
     options[:head_position] ||= '+30+60'
     options[:head_size] ||= '160x160'
-    options[:mask] ||= "#{Rails.root}/lib/sutils/img/mask.jpg"
+    options[:mask] ||= "lib/sutils/img/mask.jpg"
     options[:time_position] ||= '220,220'
     options[:day_position] ||= '455,220'
-    options[:font] ||= "#{Rails.root}/lib/sutils/font/AdobeHeitiStd-Regular.otf"
+    options[:font] ||= "lib/sutils/fontis/AdobeHeitiStd-Regular.otf"
     options[:number_size] ||= 70
-    options[:template] ||= "template_#{Time.now.strftime('%D')}.jpg"
+    # options[:template] ||= "template_#{Time.now.strftime('%D')}.jpg"
+    options[:template] ||= "lib/assets/image/gm_template.jpeg"
+    
 
     img_head = MiniMagick::Image.open(user.avatar.current_path)
     img_template = MiniMagick::Image.open(options[:template])
