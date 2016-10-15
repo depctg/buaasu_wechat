@@ -102,7 +102,7 @@ class WechatsController < ApplicationController
 
     # if is valid
     user.sign_record.days << Time.now
-    user.day += 1
+    user.sign_record.day += 1
 
     user.save
 
