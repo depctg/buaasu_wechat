@@ -87,9 +87,9 @@ class WechatsController < ApplicationController
       user.open_id = request[:FromUserName]
       user.remote_avatar_url = Wechat.api.user(request[:FromUserName])['headimgurl']
 
-    elsif # user.avatar.file.nil?
+    # elsif user.avatar.file.nil?
+    else
       user.remote_avatar_url = Wechat.api.user(request[:FromUserName])['headimgurl']
-
     end
 
     if user.sign_record.nil?
