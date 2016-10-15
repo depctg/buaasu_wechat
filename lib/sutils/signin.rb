@@ -2,7 +2,7 @@ module Sutils::Signin
 
   def gen_picture(user, options={})
 
-    def gen_filename
+    def gen_filename(user)
       "/tmp/signin/#{user.id}_#{Time.now.day}.jpg"
     end
 
@@ -37,7 +37,7 @@ module Sutils::Signin
       i.draw "text #{options[:day_position]} \"#{user.sign_record.day}\""
     end
 
-    result = gen_filename
+    result = gen_filename user
     img_template.write result
     return result
   end
