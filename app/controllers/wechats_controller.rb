@@ -87,11 +87,9 @@ class WechatsController < ApplicationController
       user.open_id = request[:FromUserName]
       user.remote_avatar_url = Wechat.api.user(request[:FromUserName])['headimgurl']
 
-      user.save
     elsif user.avatar.file.nil?
       user.remote_avatar_url = Wechat.api.user(request[:FromUserName])['headimgurl']
 
-      user.save
     end
 
     if user.sign_record.nil?
@@ -101,7 +99,9 @@ class WechatsController < ApplicationController
     end
 
     # if is valid
+    user.sign_record.days ||= []
     user.sign_record.days << Time.now
+    user.sign_record.day ||= 0
     user.sign_record.day += 1
 
     user.save
