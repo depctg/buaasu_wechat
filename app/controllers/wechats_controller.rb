@@ -2,6 +2,7 @@ class WechatsController < ApplicationController
   include Sutils::Schoolbus
   include Sutils::Qrcode
   include Sutils::WechatHelper
+  include Sutils::Signin
   wechat_responder
 
   # constants, access keys
@@ -78,7 +79,6 @@ class WechatsController < ApplicationController
 
   # Tests
   on :text, with: /测试签到/ do |request|
-    include Sutils::Signin
 
     user = User.find_by(open_id: request[:FromUserName])
     if user.nil?
