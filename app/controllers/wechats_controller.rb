@@ -87,8 +87,7 @@ class WechatsController < ApplicationController
       user.open_id = request[:FromUserName]
       user.remote_avatar_url = Wechat.api.user(request[:FromUserName])['headimgurl']
 
-    # elsif user.avatar.file.nil?
-    else
+    elsif user.avatar.file.nil?
       user.remote_avatar_url = Wechat.api.user(request[:FromUserName])['headimgurl']
     end
 
@@ -107,8 +106,7 @@ class WechatsController < ApplicationController
     user.save
 
     # gen picture here
-    filename = gen_picture user
-    request.reply.text filename
+    request.reply.image temp_image(gen_picture(user))
   end
 
   # default response
