@@ -3,7 +3,7 @@ module Sutils::Signin
   def gen_picture(user, options={})
 
     def gen_filename(user)
-      "/tmp/signin/#{user.id}_#{Time.now.day}.jpg"
+      "/tmp/signin_#{user.id}_#{Time.now.day}.jpg"
     end
 
     # default options
