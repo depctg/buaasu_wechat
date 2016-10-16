@@ -10,47 +10,6 @@ class WechatsController < ApplicationController
   IMG_SCHOOLBUS = 'NjRvKRIAWWC3esDN3eGYw5V3nM0uvncD1yfGTO6tUwE'
 
   # activity => carteen
-  on :text, with: /抽奖/ do |request|
-
-    user = User.find_by(open_id: request[:FromUserName])
-    unless user
-      user = User.new
-      user.open_id = request[:FromUserName]
-      user.save
-    end
-
-    degist_str = base64encode(user.open_id)
-    degist = CanteenDegist.find_by(degist: degist_str) 
-    if degist
-      if degist.is_picked
-        if degist.is_used
-          request.reply.text "您已经兑换过了！"
-        else
-          request.reply.text "您已经领取，请到食堂三楼北水吧处兑换！回复 查看优惠券 查看您的优惠券。"
-        end
-      else
-        request.reply.text "您已经抽过了，但并没有中奖！"
-      end
-    else
-      total_ticket = CanteenDegist.where(is_picked: true).count
-
-      if (total_ticket >= 2000)
-        request.reply.text "优惠券已经被抽完了！"
-      else
-        # 33% to get a ticket
-        if [false, false, true].sample
-          CanteenDegist.create(degist: degist_str, is_picked: true) 
-          filename = base64qr(user.open_id)
-          filename = add_background(filename, 'lib/assets/image/canteen_bg.jpeg', 405, 26, 149)
-          request.reply.image temp_image(filename)
-        else
-          CanteenDegist.create(degist: degist_str, is_picked: false)
-          request.reply.image "NjRvKRIAWWC3esDN3eGYw15W1xbymgUJNJtuGZ4aWMs"
-        end
-      end
-    end
-
-  end
 
   on :text, with: '查看优惠券' do |request|
     degist = CanteenDegist.find_by(degist: base64encode(request[:FromUserName])) 
@@ -97,31 +56,32 @@ class WechatsController < ApplicationController
     end
 
     # if is valid
-    # And if 
-    # Save last date and last time || or last datetime
-    # select * from info where dateTime>'2001-12-01 00:00:00' and dateTime<'2001-12-01 23:59:59'
     user_status = false
     user_msg = nil
-    #
+
     now_t = Time.now
+    # hardcode this
     start_t = "#{now_t.strftime('%Y-%m-%d')} 05:00:00 +0800".to_time
     end_t = "#{now_t.strftime('%Y-%m-%d')} 10:00:00 +0800".to_time
     if start_t <= now_t && now_t < end_t
-      lastdate = (Time.now - 24).strftime('%Y-%m-%d')
-      if user.sign_record.day == 0
+      lastdate = (Time.now - 24.hours).strftime('%Y-%m-%d')
+      if not user.sign_record.last_sign_time
         user_status = true
         user.sign_record.days ||= []
-        user.sign_record.days << Time.now
-        user.sign_record.day += 1
-      elsif user.sign_record.days.last > "#{lastdate} 23:59:59 +0800".to_time
+        user.sign_record.days << now_t
+        user.sign_record.day = 1
+        user.sign_record.last_sign_time = now_t
+      elsif user.sign_record.last_sign_time > "#{lastdate} 23:59:59 +0800".to_time
         user_status = false
         user_msg = "您今天已经签过到了"
-      elsif user.sign_record.days.last < "#{lastdate} 23:59:59 +0800".to_time
+      elsif user.sign_record.last_sign_time < "#{lastdate} 23:59:59 +0800".to_time
         user_status = true
         user.sign_record.days << Time.now
         user.sign_record.day = 1
+        user.sign_record.last_sign_time = now_t
       else
         user_status = true
+        user.sign_record.last_sign_time = now_t
         user.sign_record.days << Time.now
         user.sign_record.day += 1
       end
