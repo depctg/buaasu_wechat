@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   # Background
   get '/admin/gmbuaa', to: 'admin#gmbuaa'
   post '/admin/gmbuaa', to: 'admin#gmupload' 
+  get '/admin/gmbuaa/delete/:filename', to: 'admin#gmdelete'
   # Canteen activity
   get '/canteen/:degist', to: 'canteen#use'
 

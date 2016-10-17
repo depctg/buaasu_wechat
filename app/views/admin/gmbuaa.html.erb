@@ -1,4 +1,5 @@
 <div class="form">
+<h3>请上传一张jpg图片。将自动作为第二天的素材。可以上传多张。</h3>
 <%= form_for :gmupload, method: 'post' do |f|%>
     <%= f.file_field :image, accept: 'image/jpeg' %>
     <%= f.submit "Upload" %>
@@ -7,9 +8,16 @@
 <div class="gallary">
     <% @images.each do |day, imgs| %>
     <div id="<%= day %>" class="day">
-        <h4><%= day %></h4>
+        <h3><%= day %></h4>
         <% imgs.each do |img| %>
-            <%= image_tag img %>
+            <div class="image">
+                <span>
+                    <%= img.split('/').last %>
+                    <%= link_to 'delete', '/admin/gmbuaa/delete/' + img.split('/').last.split('.').first, method: 'get' %>
+                </span>
+                <br/>
+                <%= image_tag img %>
+            </div>
         <% end %>
     </div>
     <% end %>
