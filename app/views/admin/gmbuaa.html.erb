@@ -1,0 +1,16 @@
+<div class="form">
+<%= form_for :gmupload, method: 'post' do |f|%>
+    <%= f.file_field :image, accept: 'image/jpeg' %>
+    <%= f.submit "Upload" %>
+<% end %>
+</div>
+<div class="gallary">
+    <% @images.each do |day, imgs| %>
+    <div id="<%= day %>" class="day">
+        <h4><%= day %></h4>
+        <% imgs.each do |img| %>
+            <%= image_tag img %>
+        <% end %>
+    </div>
+    <% end %>
+</div>
