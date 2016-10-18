@@ -95,9 +95,10 @@ class WechatsController < ApplicationController
 
     # gen picture here
     if user_status
-      templates = Dir.glob(File.join('public', 'uploads', 'gmtemplates', '*.jpg'))
-      templates.select! {|f| f.include?(now_date)}
-      request.reply.image temp_image(gen_picture(user, template: templates.sample))
+      # templates = Dir.glob(File.join('public', 'uploads', 'gmtemplates', '*.jpg'))
+      # templates.select! {|f| f.include?(now_date)}
+      # request.reply.image temp_image(gen_picture(user, template: templates.sample))
+      request.reply.image temp_image(gen_picture(user))
     else
       request.reply.text user_msg
     end
