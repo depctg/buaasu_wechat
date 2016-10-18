@@ -40,9 +40,9 @@ class WechatsController < ApplicationController
   on :text, with: /测试签到/ do |request|
 
     # Mutex for multi requests
-    # unless Rails.cache.exist? request[:FromUserName]
+    unless Rails.cache.exist? request[:FromUserName]
 
-      # Rails.cache.write request[:FromUserName], true, expire_in: 6.hours
+      Rails.cache.write request[:FromUserName], true, expire_in: 6.hours
 
       user = User.find_by(open_id: request[:FromUserName])
       if user.nil?
@@ -110,14 +110,12 @@ class WechatsController < ApplicationController
         request.reply.text user_msg
       end
 
-      # Cache options
-
-    # else
-      # # do not return until first thread is finished
-      # while Rails.cache.exist? request[:FromUserName] do
-        # sleep 0.5
-      # end
-    # end
+    else
+      # do not return until first thread is finished
+      while Rails.cache.exist? request[:FromUserName] do
+        sleep 0.5
+      end
+    end
 
   end
 
