@@ -108,8 +108,13 @@ class WechatsController < ApplicationController
       end
 
       # Cache options
-      Rails.cache.delete request[:FromUserName]
 
+      Rails.cache.delete request[:FromUserName]
+    else
+      # do not return until first thread is finished
+      while not Rails.cache.exist? request[:FromUserName] do
+        sleep 0.5
+      end
     end
 
   end
