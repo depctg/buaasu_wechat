@@ -127,8 +127,9 @@ class WechatsController < ApplicationController
   end
 
   on :text, with: /dcache/ do |request|
+    data = Rails.cache.read request[:FromUserName]
     Rails.cache.delete request[:FromUserName]
-    request.reply.text Rails.cache.exist?(request[:FromUserName]).to_s
+    request.reply.text data
   end
 
   on :text, with: /dlast/ do |request|
