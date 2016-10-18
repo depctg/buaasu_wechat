@@ -43,8 +43,6 @@ class WechatsController < ApplicationController
 
     user = User.find_by(open_id: request[:FromUserName])
 
-    user.with_lock do
-
       if user.nil?
         # create User here
         user = User.new
@@ -130,8 +128,6 @@ class WechatsController < ApplicationController
       else
         request.reply.text user_msg unless user.sign_record.lock
       end
-
-    end
 
   end
 
