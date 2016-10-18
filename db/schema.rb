@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161018024829) do
+ActiveRecord::Schema.define(version: 20161018083454) do
 
   create_table "canteen_degists", force: :cascade do |t|
     t.string   "degist"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 20161018024829) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.datetime "last_sign_time"
+    t.boolean  "lock"
     t.index ["last_sign_time"], name: "index_sign_records_on_last_sign_time"
     t.index ["user_id"], name: "index_sign_records_on_user_id"
   end
@@ -36,6 +37,7 @@ ActiveRecord::Schema.define(version: 20161018024829) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "avatar"
+    t.string   "nickname"
     t.index ["open_id"], name: "index_users_on_open_id"
   end
 
