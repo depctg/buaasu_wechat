@@ -42,7 +42,7 @@ class WechatsController < ApplicationController
     # Mutex for multi requests
     unless Rails.cache.exist? request[:FromUserName]
 
-      Rails.cache.write request[:FromUserName], true, expire_in: 6.hours
+      Rails.cache.write request[:FromUserName], false, expire_in: 6.hours
 
       user = User.find_by(open_id: request[:FromUserName])
       if user.nil?
@@ -103,7 +103,7 @@ class WechatsController < ApplicationController
         templates = Dir.glob(File.join('public', 'uploads', 'gmtemplates', '*.jpg'))
         templates.select! {|f| f.include?(now_date)}
         media_id = gen_picture(user, template: templates.sample)
-        Rails.cache.delete request[:FromUserName]
+        Rails.cache.write request[:FromUserName], media_id
         request.reply.image temp_image(media_id)
       else
         Rails.cache.delete request[:FromUserName]
@@ -112,8 +112,15 @@ class WechatsController < ApplicationController
 
     else
       # do not return until first thread is finished
-      while Rails.cache.exist? request[:FromUserName] do
-        sleep 0.5
+      if not Rails.cache.read request[:FromUserName]
+        while not Rails.cache.read request[:FromUserName] do
+          sleep 0.05
+        end
+
+        media_id = Rails.cache.read request[:FromUserName]
+        Rails.cache.delete request[:FromUserName]
+
+        request.reply.image media_id
       end
     end
 
