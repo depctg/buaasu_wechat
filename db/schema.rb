@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161016084755) do
+ActiveRecord::Schema.define(version: 20161018024829) do
 
   create_table "canteen_degists", force: :cascade do |t|
     t.string   "degist"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20161016084755) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "avatar"
+    t.index ["open_id"], name: "index_users_on_open_id"
   end
 
   create_table "wechat_sessions", force: :cascade do |t|
