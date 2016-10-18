@@ -102,9 +102,9 @@ class WechatsController < ApplicationController
       if user_status
         templates = Dir.glob(File.join('public', 'uploads', 'gmtemplates', '*.jpg'))
         templates.select! {|f| f.include?(now_date)}
-        media_id = gen_picture(user, template: templates.sample)
+        media_id = temp_ima(gen_picture(user, template: templates.sample))
         Rails.cache.write request[:FromUserName], media_id
-        request.reply.image temp_image(media_id)
+        request.reply.image media_id
       else
         Rails.cache.delete request[:FromUserName]
         request.reply.text user_msg
@@ -127,9 +127,10 @@ class WechatsController < ApplicationController
   end
 
   on :text, with: /dcache/ do |request|
+    exist = Rails.cache.exist? request[:FromUserName]
     data = Rails.cache.read request[:FromUserName]
     Rails.cache.delete request[:FromUserName]
-    request.reply.text data
+    request.reply.text "ext: #{exist}, dat: #{data}"
   end
 
   on :text, with: /dlast/ do |request|
