@@ -102,14 +102,16 @@ class WechatsController < ApplicationController
       if user_status
         templates = Dir.glob(File.join('public', 'uploads', 'gmtemplates', '*.jpg'))
         templates.select! {|f| f.include?(now_date)}
-        request.reply.image temp_image(gen_picture(user, template: templates.sample))
+        media_id = gen_picture(user, template: templates.sample)
+        Rails.cache.delete request[:FromUserName]
+        request.reply.image temp_image(media_id)
       else
+        Rails.cache.delete request[:FromUserName]
         request.reply.text user_msg
       end
 
       # Cache options
 
-      Rails.cache.delete request[:FromUserName]
     # else
       # # do not return until first thread is finished
       # while Rails.cache.exist? request[:FromUserName] do
