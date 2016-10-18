@@ -40,9 +40,7 @@ class WechatsController < ApplicationController
   on :text, with: /测试签到/ do |request|
 
     # Mutex for multi requests
-    unless Rails.cache.exist? request[:FromUserName]
 
-      Rails.cache.write request[:FromUserName], false, expire_in: 6.hours
 
       user = User.find_by(open_id: request[:FromUserName])
       if user.nil?
@@ -99,13 +97,14 @@ class WechatsController < ApplicationController
 
       # gen picture here
       if user_status
+        Rails.cache.write request[:FromUserName], false
         templates = Dir.glob(File.join('public', 'uploads', 'gmtemplates', '*.jpg'))
         templates.select! {|f| f.include?(now_date)}
         media_id = temp_image(gen_picture(user, template: templates.sample))
         msg = {
             touser: request[:FromUserName],
             msgtype: "image",
-            text:
+            image:
             {
                        media_id: media_id
             }
@@ -113,10 +112,8 @@ class WechatsController < ApplicationController
         Wechat.api.custom_message_send msg
         Rails.cache.delete request[:FromUserName]
       else
-        Rails.cache.delete request[:FromUserName]
-        request.reply.text user_msg
+        request.reply.text user_msg unless Rails.cache.exist? request[:FromUserName]
       end
-    end
 
   end
 
