@@ -40,9 +40,9 @@ class WechatsController < ApplicationController
   on :text, with: /测试签到/ do |request|
 
     # Mutex for multi requests
-    unless Rails.cache.exist? request[:FromUserName]
+    # unless Rails.cache.exist? request[:FromUserName]
 
-      Rails.cache.write request[:FromUserName], true, expire_in: 6.hours
+      # Rails.cache.write request[:FromUserName], true, expire_in: 6.hours
 
       user = User.find_by(open_id: request[:FromUserName])
       if user.nil?
@@ -91,12 +91,12 @@ class WechatsController < ApplicationController
           user.sign_record.days << Time.now
           user.sign_record.day += 1
         end
+        user.save
       else
         user_status = false
         user_msg = "现在不在签到时间。"
       end
 
-      user.save
 
       # gen picture here
       if user_status
@@ -109,13 +109,13 @@ class WechatsController < ApplicationController
 
       # Cache options
 
-      Rails.cache.delete request[:FromUserName]
-    else
-      # do not return until first thread is finished
-      while Rails.cache.exist? request[:FromUserName] do
-        sleep 0.5
-      end
-    end
+      # Rails.cache.delete request[:FromUserName]
+    # else
+      # # do not return until first thread is finished
+      # while Rails.cache.exist? request[:FromUserName] do
+        # sleep 0.5
+      # end
+    # end
 
   end
 
