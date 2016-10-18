@@ -97,30 +97,24 @@ class WechatsController < ApplicationController
         user_msg = "现在不在签到时间。"
       end
 
-
       # gen picture here
       if user_status
         templates = Dir.glob(File.join('public', 'uploads', 'gmtemplates', '*.jpg'))
         templates.select! {|f| f.include?(now_date)}
         media_id = temp_image(gen_picture(user, template: templates.sample))
-        Rails.cache.write request[:FromUserName], media_id
-        request.reply.image media_id
+        msg = {
+            touser: request[:FromUserName],
+            msgtype: "image",
+            text:
+            {
+                       media_id: media_id
+            }
+        }
+        Wechat.api.custom_message_send msg
+        Rails.cache.delete request[:FromUserName]
       else
         Rails.cache.delete request[:FromUserName]
         request.reply.text user_msg
-      end
-
-    else
-      # do not return until first thread is finished
-      unless Rails.cache.read request[:FromUserName]
-        while not Rails.cache.read request[:FromUserName] do
-          sleep 0.05
-        end
-
-        media_id = Rails.cache.read request[:FromUserName]
-        Rails.cache.delete request[:FromUserName]
-
-        request.reply.image media_id
       end
     end
 
@@ -144,7 +138,7 @@ class WechatsController < ApplicationController
   on :text, with: /Kf/ do |request|
     msg = {
         'touser' => request[:FromUserName],
-        "msgtype" => "image",
+        "msgtype" => "text",
         "text" =>
         {
                    "content" => "Hello World"
