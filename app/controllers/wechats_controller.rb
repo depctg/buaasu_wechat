@@ -112,7 +112,7 @@ class WechatsController < ApplicationController
 
     else
       # do not return until first thread is finished
-      if not Rails.cache.read request[:FromUserName]
+      unless Rails.cache.read request[:FromUserName]
         while not Rails.cache.read request[:FromUserName] do
           sleep 0.05
         end
@@ -124,6 +124,19 @@ class WechatsController < ApplicationController
       end
     end
 
+  end
+
+  on :text, with: /dcache/ do |request|
+    Rails.cache.delete request[:FromUserName]
+    request.reply.text Rails.cache.exist?(request[:FromUserName]).to_s
+  end
+
+  on :text, with: /dlast/ do |request|
+    user = User.find_by open_id: request[:FromUserName]
+    user.sign_record.last_sign_time = nil
+    user.save
+
+    request.reply.text "Deleted"
   end
 
   on :text, with: /签到注册/ do |request|
