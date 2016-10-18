@@ -72,10 +72,10 @@ class WechatsController < ApplicationController
         user.sign_record.days << now_t
         user.sign_record.day = 1
         user.sign_record.last_sign_time = now_t
-      elsif user.sign_record.last_sign_time > "#{lastdate} 23:59:59 +0800".to_time
+      elsif user.sign_record.last_sign_time > "#{now_date} 00:00:00 +0800".to_time
         user_status = false
         user_msg = "您今天已经签过到了"
-      elsif user.sign_record.last_sign_time < "#{lastdate} 23:59:59 +0800".to_time
+      elsif user.sign_record.last_sign_time < "#{lastdate} 00:00:00 +0800".to_time
         user_status = true
         user.sign_record.days << Time.now
         user.sign_record.day = 1
