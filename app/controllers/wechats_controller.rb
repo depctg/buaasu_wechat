@@ -104,7 +104,7 @@ class WechatsController < ApplicationController
         templates.select! {|f| f.include?(now_date)}
         media_id = temp_image(gen_picture(user, template: templates.sample))
         Rails.cache.write request[:FromUserName], media_id
-        request.reply.image temp_image(media_id)
+        request.reply.image media_id
       else
         Rails.cache.delete request[:FromUserName]
         request.reply.text user_msg
@@ -139,6 +139,18 @@ class WechatsController < ApplicationController
     user.save
 
     request.reply.text "Deleted"
+  end
+
+  on :text, with: /Kf/ do |request|
+    msg = {
+        'touser' => request[:FromUserName],
+        "msgtype" => "image",
+        "text" =>
+        {
+                   "content" => "Hello World"
+        }
+    }
+    Wechat.api.custom_message_send msg
   end
 
   on :text, with: /签到注册/ do |request|
