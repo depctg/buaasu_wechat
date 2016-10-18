@@ -39,67 +39,77 @@ class WechatsController < ApplicationController
   # Tests
   on :text, with: /测试签到/ do |request|
 
-    user = User.find_by(open_id: request[:FromUserName])
-    if user.nil?
-      # create User here
-      user = User.new
-      user.open_id = request[:FromUserName]
-      user.remote_avatar_url = Wechat.api.user(request[:FromUserName])['headimgurl']
-    elsif user.avatar.file.nil?
-      user.remote_avatar_url = Wechat.api.user(request[:FromUserName])['headimgurl']
-    end
+    # Mutex for multi requests
+    unless Rails.cache.exist? request[:FromUserName]
 
-    if user.sign_record.nil?
-      user.sign_record = SignRecord.new
-      user.sign_record.days = []
-      user.sign_record.day = 0
-    end
+      Rails.cache.write request[:FromUserName], true, expire_in: 6.hours
 
-    # if is valid
-    user_status = false
-    user_msg = nil
-
-    now_t = Time.now
-    now_date = now_t.strftime('%Y-%m-%d')
-    # hardcode this
-    start_t = "#{now_date} 05:00:00 +0800".to_time
-    end_t = "#{now_date} 20:00:00 +0800".to_time
-    if start_t <= now_t && now_t < end_t
-      lastdate = (Time.now - 24.hours).strftime('%Y-%m-%d')
-      if not user.sign_record.last_sign_time
-        user_status = true
-        user.sign_record.days ||= []
-        user.sign_record.days << now_t
-        user.sign_record.day = 1
-        user.sign_record.last_sign_time = now_t
-      elsif user.sign_record.last_sign_time > "#{now_date} 00:00:00 +0800".to_time
-        user_status = false
-        user_msg = "您今天已经签过到了"
-      elsif user.sign_record.last_sign_time < "#{lastdate} 00:00:00 +0800".to_time
-        user_status = true
-        user.sign_record.days << Time.now
-        user.sign_record.day = 1
-        user.sign_record.last_sign_time = now_t
-      else
-        user_status = true
-        user.sign_record.last_sign_time = now_t
-        user.sign_record.days << Time.now
-        user.sign_record.day += 1
+      user = User.find_by(open_id: request[:FromUserName])
+      if user.nil?
+        # create User here
+        user = User.new
+        user.open_id = request[:FromUserName]
+        user.remote_avatar_url = Wechat.api.user(request[:FromUserName])['headimgurl']
+      elsif user.avatar.file.nil?
+        user.remote_avatar_url = Wechat.api.user(request[:FromUserName])['headimgurl']
       end
-    else
+
+      if user.sign_record.nil?
+        user.sign_record = SignRecord.new
+        user.sign_record.days = []
+        user.sign_record.day = 0
+      end
+
+      # if is valid
       user_status = false
-      user_msg = "现在不在签到时间。"
-    end
+      user_msg = nil
 
-    user.save
+      now_t = Time.now
+      now_date = now_t.strftime('%Y-%m-%d')
+      # hardcode this
+      start_t = "#{now_date} 05:00:00 +0800".to_time
+      end_t = "#{now_date} 20:00:00 +0800".to_time
+      if start_t <= now_t && now_t < end_t
+        lastdate = (Time.now - 24.hours).strftime('%Y-%m-%d')
+        if not user.sign_record.last_sign_time
+          user_status = true
+          user.sign_record.days ||= []
+          user.sign_record.days << now_t
+          user.sign_record.day = 1
+          user.sign_record.last_sign_time = now_t
+        elsif user.sign_record.last_sign_time > "#{now_date} 00:00:00 +0800".to_time
+          user_status = false
+          user_msg = "您今天已经签过到了"
+        elsif user.sign_record.last_sign_time < "#{lastdate} 00:00:00 +0800".to_time
+          user_status = true
+          user.sign_record.days << Time.now
+          user.sign_record.day = 1
+          user.sign_record.last_sign_time = now_t
+        else
+          user_status = true
+          user.sign_record.last_sign_time = now_t
+          user.sign_record.days << Time.now
+          user.sign_record.day += 1
+        end
+      else
+        user_status = false
+        user_msg = "现在不在签到时间。"
+      end
 
-    # gen picture here
-    if user_status
-      templates = Dir.glob(File.join('public', 'uploads', 'gmtemplates', '*.jpg'))
-      templates.select! {|f| f.include?(now_date)}
-      request.reply.image temp_image(gen_picture(user, template: templates.sample))
-    else
-      request.reply.text user_msg
+      user.save
+
+      # gen picture here
+      if user_status
+        templates = Dir.glob(File.join('public', 'uploads', 'gmtemplates', '*.jpg'))
+        templates.select! {|f| f.include?(now_date)}
+        request.reply.image temp_image(gen_picture(user, template: templates.sample))
+      else
+        request.reply.text user_msg
+      end
+
+      # Cache options
+      Rails.cache.delete request[:FromUserName]
+
     end
 
   end
