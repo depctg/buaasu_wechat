@@ -123,7 +123,7 @@ class WechatsController < ApplicationController
         Wechat.api.custom_message_send msg
 
         # Welcome message
-        if user.sign_record.days.empty?
+        if user.sign_record.days.size == 1
 
           msg_text = {
             touser: request[:FromUserName],
