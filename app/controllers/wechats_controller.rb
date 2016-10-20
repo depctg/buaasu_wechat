@@ -100,7 +100,6 @@ class WechatsController < ApplicationController
         user.sign_record.lock = true
         user.save
 
-        Rails.cache.write request[:FromUserName], false
         templates = Dir.glob(File.join('public', 'uploads', 'gmtemplates', '*.jpg'))
         templates.select! {|f| f.include?(now_date)}
         media_id = temp_image(gen_picture(user, template: templates.sample))
@@ -123,19 +122,14 @@ class WechatsController < ApplicationController
         Wechat.api.custom_message_send msg_text
         Wechat.api.custom_message_send msg
 
+        sleep 4
+
         user.sign_record.lock = false
         user.save
       else
         request.reply.text user_msg unless user.sign_record.lock
       end
 
-  end
-
-  on :text, with: /dcache/ do |request|
-    exist = Rails.cache.exist? request[:FromUserName]
-    data = Rails.cache.read request[:FromUserName]
-    Rails.cache.delete request[:FromUserName]
-    request.reply.text "ext: #{exist}, dat: #{data}"
   end
 
   on :text, with: /dlast/ do |request|
