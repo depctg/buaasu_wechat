@@ -122,6 +122,23 @@ class WechatsController < ApplicationController
         Wechat.api.custom_message_send msg_text
         Wechat.api.custom_message_send msg
 
+        # Welcome message
+        if user.sign_record.day == 1
+
+          msg_text = {
+            touser: request[:FromUserName],
+            msgtype: "text",
+            text:
+            {
+              content: '早安~'
+            }
+          }
+
+          Wechat.api.custom_message_send msg_text
+
+        end
+
+
         sleep 10
 
         user.sign_record.lock = false
