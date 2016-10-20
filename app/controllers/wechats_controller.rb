@@ -66,7 +66,7 @@ class WechatsController < ApplicationController
       now_date = now_t.strftime('%Y-%m-%d')
       # hardcode this
       start_t = "#{now_date} 05:00:00 +0800".to_time
-      end_t = "#{now_date} 20:00:00 +0800".to_time
+      end_t = "#{now_date} 23:59:00 +0800".to_time
       if start_t <= now_t && now_t < end_t
         lastdate = (Time.now - 24.hours).strftime('%Y-%m-%d')
         if not user.sign_record.last_sign_time
@@ -77,7 +77,7 @@ class WechatsController < ApplicationController
           user.sign_record.last_sign_time = now_t
         elsif user.sign_record.last_sign_time > "#{now_date} 00:00:00 +0800".to_time
           user_status = false
-          user_msg = "您今天已经签过到了"
+          user_msg = "今天已经签过到了呦～"
         elsif user.sign_record.last_sign_time < "#{lastdate} 00:00:00 +0800".to_time
           user_status = true
           user.sign_record.days << Time.now
@@ -91,7 +91,7 @@ class WechatsController < ApplicationController
         end
       else
         user_status = false
-        user_msg = "现在不在签到时间。"
+        user_msg = "已经过了签到时间了哦~ 尝试明天早起吧！"
       end
 
       # gen picture here
@@ -130,7 +130,7 @@ class WechatsController < ApplicationController
             msgtype: "text",
             text:
             {
-              content: '早安~'
+              content: '邀请你的小伙伴来和我们一起“早安，北航”吧！晒出你的早起天数，精神满满的开启每一天！坚持签到更有神秘奖品拿哦！'
             }
           }
 
