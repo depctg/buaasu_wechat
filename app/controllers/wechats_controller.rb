@@ -65,8 +65,8 @@ class WechatsController < ApplicationController
       now_t = Time.now
       now_date = now_t.strftime('%Y-%m-%d')
       # hardcode this
-      start_t = "#{now_date} 00:00:00 +0800".to_time
-      end_t = "#{now_date} 23:59:00 +0800".to_time
+      start_t = "#{now_date} 05:00:00 +0800".to_time
+      end_t = "#{now_date} 10:00:00 +0800".to_time
       if start_t <= now_t && now_t < end_t
         lastdate = (Time.now - 24.hours).strftime('%Y-%m-%d')
         if not user.sign_record.last_sign_time
