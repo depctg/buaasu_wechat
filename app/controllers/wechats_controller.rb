@@ -37,6 +37,10 @@ class WechatsController < ApplicationController
   end
 
   # Tests
+  on :text, with: /九宫格/ do |request|
+    request.reply.text '真遗憾，您没有抽中！'
+  end
+
   on :text, with: /(早安|早上好)/ do |request|
 
     # Mutex for multi requests
