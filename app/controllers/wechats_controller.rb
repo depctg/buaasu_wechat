@@ -37,7 +37,7 @@ class WechatsController < ApplicationController
   end
 
   # Tests
-  on :text, with: /测试签到/ do |request|
+  on :text, with: /(早安|早上好)/ do |request|
 
     # Mutex for multi requests
 
@@ -123,14 +123,14 @@ class WechatsController < ApplicationController
         Wechat.api.custom_message_send msg
 
         # Welcome message
-        if user.sign_record.day == 1
+        if user.sign_record.days.empty?
 
           msg_text = {
             touser: request[:FromUserName],
             msgtype: "text",
             text:
             {
-              content: '邀请你的小伙伴来和我们一起“早安，北航”吧！晒出你的早起天数，精神满满的开启每一天！坚持签到更有神秘奖品拿哦！'
+              content: '邀请你的小伙伴来和我们一起“早安，北航”吧！晒出你的早起天数，精神满满地开启每一天！坚持签到更有神秘奖品拿哦！'
             }
           }
 
