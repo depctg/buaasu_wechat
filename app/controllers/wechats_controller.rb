@@ -122,7 +122,7 @@ class WechatsController < ApplicationController
         Wechat.api.custom_message_send msg_text
         Wechat.api.custom_message_send msg
 
-        sleep 4
+        sleep 10
 
         user.sign_record.lock = false
         user.save
