@@ -65,7 +65,7 @@ class WechatsController < ApplicationController
       now_t = Time.now
       now_date = now_t.strftime('%Y-%m-%d')
       # hardcode this
-      start_t = "#{now_date} 05:00:00 +0800".to_time
+      start_t = "#{now_date} 00:00:00 +0800".to_time
       end_t = "#{now_date} 23:59:00 +0800".to_time
       if start_t <= now_t && now_t < end_t
         lastdate = (Time.now - 24.hours).strftime('%Y-%m-%d')
@@ -130,7 +130,7 @@ class WechatsController < ApplicationController
             msgtype: "text",
             text:
             {
-              content: '邀请你的小伙伴来和我们一起“早安，北航”吧！晒出你的早起天数，精神满满地开启每一天！坚持签到更有神秘奖品拿哦！'
+              content: '邀请你的小伙伴来和我们一起“早安，北航”吧！到朋友圈晒出你的早起天数，精神满满地开启每一天！坚持签到更有神秘奖品拿哦！'
             }
           }
 
