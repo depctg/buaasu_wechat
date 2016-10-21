@@ -38,7 +38,7 @@ class WechatsController < ApplicationController
 
   # Tests
   on :text, with: /九宫格/ do |request|
-    request.reply.text '真遗憾，您没有抽中！'
+    request.reply.text '真遗憾，没有抽中。别灰心，只要你将“九宫格”推送转发到朋友圈，到店消费时出示给店员即可享受满200立减30的优惠！'
   end
 
   on :text, with: /(早安|早上好)/ do |request|
