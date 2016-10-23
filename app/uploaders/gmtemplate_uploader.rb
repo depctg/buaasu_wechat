@@ -45,7 +45,12 @@ class GmtemplateUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    date = (Time.now + 24.hours).strftime('%Y-%m-%d')
+    now_t = Time.now
+    if now_t > "#{now_t.strftime('%Y-%m-%d')} 05:00:00 +0800".to_time
+      date = (now_t + 24.hours).strftime('%Y-%m-%d')
+    else
+      date = now_t.strftime('%Y-%m-%d')
+    end
     images = Dir.glob(File.join('public', 'uploads', 'gmtemplates', '*.jpg'))
     nth = images.select {|f| f.include?(date)}.size
     "#{date}_#{nth}.jpg"
