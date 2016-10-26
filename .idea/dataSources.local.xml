@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails buaasu_wechat: development" uuid="7c50ca20-39d6-4798-945d-9400db03191c">
+      <auth-required>false</auth-required>
+    </data-source>
+    <data-source name="Rails buaasu_wechat: production" uuid="497e7d49-3c58-4522-8436-70b8f7dc9262">
+      <user-name>mina_deploy</user-name>
+    </data-source>
+    <data-source name="Rails buaasu_wechat: test" uuid="5f043826-bd76-46ba-bfbc-0ad54003e281" />
+  </component>
+</project>
