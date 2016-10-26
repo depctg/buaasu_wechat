@@ -24,4 +24,8 @@ class AdminController < ApplicationController
     # upload image files
     redirect_to :admin_gmbuaa
   end
+
+  def images
+    @images = File.join('public', 'uploads', 'image_messages', '*')
+  end
 end

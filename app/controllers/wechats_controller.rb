@@ -37,7 +37,7 @@ class WechatsController < ApplicationController
   end
 
   on :text, with: /摄影大赛/ do |request|
-    request.reply.text '● 投稿方式
+    request.reply.text '    ● 投稿方式
     buaa2016syds@163.com
     ● 投稿时间
     2016年10月25日——2015年11月13日
@@ -197,6 +197,29 @@ class WechatsController < ApplicationController
     
 北京航空航天大学学生会竭诚为您服务 /:heart'
   end
+
+  # images
+  # on :image do |request|
+
+    # user = User.find_by(open_id: request[:FromUserName])
+
+    # if user.nil?
+      # # create User here
+      # user = User.new
+      # user.open_id = request[:FromUserName]
+      # user.nickname = Wechat.api.user(request[:FromUserName])['nickname']
+    # elsif user.nickname.nil?
+      # user.nickname = Wechat.api.user(request[:FromUserName])['nickname']
+    # end
+
+    # user.save
+
+    # path = File.join('public', 'uploads', 'image_messages')
+    # Wechat.api.media request[:MediaId], path # Save Image to path
+
+
+    # request.reply.text '感谢您投稿醉美北航!'
+  # end
 
   # menu response
   on :click, with: 'SCHOOLBUS' do |request|

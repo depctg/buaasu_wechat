@@ -1,24 +1,46 @@
-<div class="form">
-<h3>请上传一张jpg图片。将自动作为第二天的素材。可以上传多张。</h3>
-<%= form_for :gmupload, method: 'post' do |f|%>
-    <%= f.file_field :image, accept: 'image/jpeg' %>
-    <%= f.submit "Upload" %>
-<% end %>
-</div>
-<div class="gallary">
+<div class="container">
+
+  <div class="form row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for :gmupload, method: 'post' do |f|%>
+
+          <%= f.label '请上传一张jpg图片。将自动作为第二天的素材。可以上传多张。' %>
+          <%= f.file_field :image, accept: 'image/jpeg' %>
+
+          <%= f.label '这是一张SSR么?' %>
+          <%= f.check_box :SSR%>
+
+          <%= f.submit "Upload", class: 'btn btn-primary' %>
+
+      <% end %>
+    </div>
+  </div>
+
+  <div class="gallary row">
+
     <% @images.each do |day, imgs| %>
-    <div id="<%= day %>" class="day">
-        <h3><%= day %></h4>
-        <% imgs.each do |img| %>
-            <div class="image">
+
+      <div id="<%= day %>" class="day panel panel-default">
+        <div class="panel-heading">
+          <h3><%= day %></h4>
+        </div>
+        <div class="panel-body">
+          <div class="container col-md-12">
+          <% imgs.each do |img| %>
+              <div class="image col-md-3 col-xs-6">
                 <span>
                     <%= img.split('/').last %>
-                    <%= link_to 'delete', '/admin/gmbuaa/delete/' + img.split('/').last.split('.').first, method: 'get' %>
+                  <%= link_to 'delete', '/admin/gmbuaa/delete/' + img.split('/').last.split('.').first, method: 'get' %>
                 </span>
                 <br/>
-                <%= image_tag img %>
-            </div>
-        <% end %>
-    </div>
+                <%= image_tag img, class: 'img-responsive center-block' %>
+              </div>
+          <% end %>
+          </div>
+        </div>
+      </div>
+
     <% end %>
+
+  </div>
 </div>
