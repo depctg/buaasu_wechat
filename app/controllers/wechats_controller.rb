@@ -190,7 +190,7 @@ class WechatsController < ApplicationController
 北京航空航天大学学生会竭诚为您服务 /:heart'
   end
 
-  on :text, with: '^树洞(.*)' do |request, msg|
+  on :text, with: /^树洞 (.*)/ do |request, msg|
 
     user = User.find_by(open_id: request[:FromUserName])
     if user.nil?
