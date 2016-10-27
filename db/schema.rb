@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161018083454) do
+ActiveRecord::Schema.define(version: 20161027102658) do
 
   create_table "canteen_degists", force: :cascade do |t|
     t.string   "degist"
@@ -30,6 +30,24 @@ ActiveRecord::Schema.define(version: 20161018083454) do
     t.boolean  "lock"
     t.index ["last_sign_time"], name: "index_sign_records_on_last_sign_time"
     t.index ["user_id"], name: "index_sign_records_on_user_id"
+  end
+
+  create_table "treehole_messages", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "treehole_id"
+    t.string   "content",     limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.index ["treehole_id"], name: "index_treehole_messages_on_treehole_id"
+    t.index ["user_id"], name: "index_treehole_messages_on_user_id"
+  end
+
+  create_table "treeholes", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "count"
+    t.boolean  "is_active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

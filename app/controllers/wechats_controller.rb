@@ -175,14 +175,6 @@ class WechatsController < ApplicationController
 
   end
 
-  on :text, with: /dlast/ do |request|
-    user = User.find_by open_id: request[:FromUserName]
-    user.sign_record.last_sign_time = nil
-    user.save
-
-    request.reply.text "Deleted"
-  end
-
   # default response
   on :text do |request|
     request.reply.text '我们收到您的留言啦。说不定一会儿小编就会联系您哒~
@@ -196,6 +188,22 @@ class WechatsController < ApplicationController
 点击下方“校&汇”浏览校园生活信息。实用功能栏查询校车校历。
     
 北京航空航天大学学生会竭诚为您服务 /:heart'
+  end
+
+  on :text, with: '^树洞(.*)' do |request, msg|
+
+    user = User.find_by(open_id: request[:FromUserName])
+    if user.nil?
+      user = User.new
+      user.open_id = request[:FromUserName]
+    end
+
+    reply = Treehole.add_message user, msg.strip
+    if reply
+      request.reply.text "树洞里传来了回声：“#{reply}”"
+    else
+      request.reply.text "树洞是空的！"
+    end
   end
 
   # images
