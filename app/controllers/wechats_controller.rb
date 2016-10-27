@@ -198,11 +198,11 @@ class WechatsController < ApplicationController
       user.open_id = request[:FromUserName]
     end
 
-    reply = Treehole.add_message user, msg.strip
-    if reply
+    status, reply = Treehole.add_message user, msg.strip
+    if status
       request.reply.text "树洞里传来了回声：“#{reply}”"
     else
-      request.reply.text "树洞是空的！"
+      request.reply.text reply
     end
   end
 

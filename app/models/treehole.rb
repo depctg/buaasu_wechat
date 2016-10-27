@@ -12,9 +12,13 @@ class Treehole < ApplicationRecord
       new_msg.user = user
       last.treehole_messages << new_msg
       
-      return reply
+      if reply
+        return true, reply.content
+      else
+        return false, '树洞里还没有消息..'
+      end
     else
-      return nil
+      return false, '这里没有树洞..'
     end
 
   end
