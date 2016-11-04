@@ -1,8 +1,8 @@
 button:
  -
   type: "view"
-  name: "校&汇"
-  url : "http://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=1&sn=ac1b065a194920f3cafa5b361a0d14b9#wechat_redirect"
+  name: "摄影大赛"
+  url : "http://mp.weixin.qq.com/s?__biz=MjM5NzIwOTM2Nw==&mid=2653204826&idx=1&sn=1ca66d33058b6bd82f4a84d3df6064f4&chksm=bd0d65228a7aec34bdbc33e1aa9dda9dbf9794d90abe15e326b587fc3d79a07bebe98c778c9f&mpshare=1&scene=1&srcid=1031vXfsHAgFkqr5Db3TlSeg#rd"
  -
   name: "实用功能"
   sub_button:
@@ -14,6 +14,10 @@ button:
     type: "click"
     name: "校车摆渡车"
     key: "SCHOOLBUS"
+   -
+    type: "view"
+    name: "校&汇"
+    url : "http://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=1&sn=ac1b065a194920f3cafa5b361a0d14b9#wechat_redirect"
  -
   type: "view"
   name: "权心权意"

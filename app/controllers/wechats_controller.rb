@@ -164,6 +164,18 @@ class WechatsController < ApplicationController
 
         end
 
+        if [15,16].include? user.sign_record.day
+          msg_text = {
+            touser: request[:FromUserName],
+            msgtype: "text",
+            text:
+            {
+              content: '恭喜你完成本期“早安，北航”的签到任务！撒花~
+记得活动结束后按照公众号消息你领取你的“早安，北航”纪念明信片哦~'
+            }
+          }
+          Wechat.api.custom_message_send msg_text
+        end
 
         sleep 10
 
@@ -204,6 +216,10 @@ class WechatsController < ApplicationController
     else
       request.reply.text reply
     end
+  end
+
+  on :text, with: /音乐节/ do |request, msg|
+    request.reply.text '您已成功获得领取一张外场抽奖券的机会。'
   end
 
   # images
