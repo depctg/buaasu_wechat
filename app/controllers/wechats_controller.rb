@@ -218,7 +218,7 @@ class WechatsController < ApplicationController
     end
   end
 
-  on :text, with: /音乐节/ do |request, msg|
+  on :text, with: /音乐节/ do |request|
     request.reply.text '您已成功获得领取一张外场抽奖券的机会。'
   end
 
