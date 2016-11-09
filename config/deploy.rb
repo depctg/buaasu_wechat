@@ -46,7 +46,8 @@ task :deploy do
 
     on :launch do
       in_path(fetch(:current_path)) do
-        invoke :rake, 'wechat:menu'
+        # Need environment
+        # invoke :rake, 'wechat:menu'
         command %{mkdir -p tmp/}
         command %{touch tmp/restart.txt}
       end
