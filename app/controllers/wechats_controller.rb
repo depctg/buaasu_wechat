@@ -186,21 +186,18 @@ class WechatsController < ApplicationController
 
   on :text, with: /^(测试|检测)卡/ do |request, card_type|
     degist_param = case card_type
-      when '测试' then {subject: 'LILIC_CARD', class: 'TEST'}
-      when '检测' then {subject: 'LILIC_CARD', class: 'TEST'}
-      else nil
+        when '测试' then {subject: 'LILIC_CARD', degist_class: 'TEST'}
+        when '检测' then {subject: 'LILIC_CARD', degist_class: 'TEST'}
+        else nil
       end
 
     unless degist_param.nil?
-      if Degist.count_by('LILIC_CARD', class: degist_param[:class]) < 20
+      if Degist.count_by('LILIC_CARD', degist_class: degist_param[:degist_class]) < 20
         user = User.from_request request
         if user.degists.exists? degist_param
           request.reply.text "你已经有一张#{card_type}卡了！"
         else
-          degist = Degist.new
-          degist.subject = degist_param[:subject]
-          degist.class = degist_param[:class]
-          user.degists << degist
+          user.degists.create degist_param
           request.reply.text "恭喜你抢到了一张#{card_type}卡！"
         end
       else
