@@ -59,9 +59,6 @@ class WechatsController < ApplicationController
   end
 
   # Tests
-  on :text, with: /九宫格/ do |request|
-    request.reply.text '真遗憾，没有抽中。别灰心，只要你将“九宫格”推送转发到朋友圈，到店消费时出示给店员即可享受满200立减30的优惠！'
-  end
 
   on :text, with: /(早安|早上好)/ do |request|
 
@@ -185,6 +182,31 @@ class WechatsController < ApplicationController
         request.reply.text user_msg unless user.sign_record.lock
       end
 
+  end
+
+  on :test, with: /(测试|检测)卡/ do |request, card_type|
+    degist_param =
+      case card_type
+      when '测试' then {subject: 'LILIC_CARD', class: 'TEST'}
+      when '检测' then {subject: 'LILIC_CARD', class: 'TEST'}
+      else nil
+      end
+
+    if degist_param
+      if Degist.count_by('LILIC_CARD', class: card_type[:class]) < 20
+        user = User.from_request request
+        if user.degists.exists? degist_param
+          request.reply.text "你已经有一张#{card_type}卡了！"
+        else
+          user.degists.create degist_param
+          request.reply.text "恭喜你抢到了一张#{card_type}卡！"
+        end
+      else
+        request.reply.text '真可惜，卡已经被抢完了...'
+      end
+    else
+      request.reply.text '这里好像没有这样的卡片...'
+    end
   end
 
   # default response

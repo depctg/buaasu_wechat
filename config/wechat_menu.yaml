@@ -1,8 +1,19 @@
 button:
  -
-  type: "view"
   name: "摄影大赛"
-  url : "http://mp.weixin.qq.com/s?__biz=MjM5NzIwOTM2Nw==&mid=2653204826&idx=1&sn=1ca66d33058b6bd82f4a84d3df6064f4&chksm=bd0d65228a7aec34bdbc33e1aa9dda9dbf9794d90abe15e326b587fc3d79a07bebe98c778c9f&mpshare=1&scene=1&srcid=1031vXfsHAgFkqr5Db3TlSeg#rd"
+  sub_button:
+   -
+    type: "view"
+    name: "趣味组投票"
+    url : "http://mp.weixin.qq.com/s?__biz=MjM5NzIwOTM2Nw==&mid=2653205201&idx=2&sn=b42c0b69730920639d9ef15a3b30cb8c&chksm=bd0d66a98a7aefbf1ab40c4268205377fe03a0dfefede071d2cc5084329da4439fff59a975d5&scene=0#rd"
+   -
+    type: "view"
+    name: "手机组投票"
+    url : "http://mp.weixin.qq.com/s?__biz=MjM5NzIwOTM2Nw==&mid=2653205201&idx=3&sn=7c4caa7be1a0a67d0bf52b672d984062&chksm=bd0d66a98a7aefbf020bc45e86cca43a10fa81186b6fccd8936a8e596747445871b00f598fe2&scene=0#rd"
+   -
+    type: "view"
+    name: "相机组投票"
+    url : "http://mp.weixin.qq.com/s?__biz=MjM5NzIwOTM2Nw==&mid=2653205201&idx=4&sn=8c59a95d0e1ea96c60df0d869a160916&chksm=bd0d66a98a7aefbfba8c8bfb8458d6c6b0e2c1126ca23239c29d416ea7c7ff44aa2dbbd50d2b&scene=0#rd"
  -
   name: "实用功能"
   sub_button:
