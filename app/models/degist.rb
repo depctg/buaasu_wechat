@@ -6,9 +6,11 @@ class Degist < ApplicationRecord
 
   def Degist.count_by(subject, options = {})
     if options[:class]
-      Degist.find_by(subject: subject, class: options[:class]).count
+      degists = Degist.find_by(subject: subject, class: options[:class])
     else
-      Degist.find_by(subject: subject).count
+      degists = Degist.find_by(subject: subject)
     end
+
+    if degists.nil? then 0 else degists.count end
   end
 end
