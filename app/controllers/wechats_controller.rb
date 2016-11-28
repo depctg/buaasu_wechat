@@ -184,10 +184,15 @@ class WechatsController < ApplicationController
 
   end
 
-  on :text, with: /^(测试|检测)卡/ do |request, card_type|
+  on :text, with: /^(学霸|文青|吃货|单身|情侣|闺蜜|基友)卡/ do |request, card_type|
     degist_param = case card_type
-        when '测试' then {subject: 'LILIC_CARD', degist_class: 'TEST'}
-        when '检测' then {subject: 'LILIC_CARD', degist_class: 'TEST'}
+        when '学霸' then {subject: 'LILIC_CARD', degist_class: 'XUEBA'}
+        when '文青' then {subject: 'LILIC_CARD', degist_class: 'WENQING'}
+        when '吃货' then {subject: 'LILIC_CARD', degist_class: 'CHIHUO'}
+        when '单身' then {subject: 'LILIC_CARD', degist_class: 'DANSHEN'}
+        when '情侣' then {subject: 'LILIC_CARD', degist_class: 'QINGLV'}
+        when '闺蜜' then {subject: 'LILIC_CARD', degist_class: 'GUIMI'}
+        when '基友' then {subject: 'LILIC_CARD', degist_class: 'JIYOU'}
         else nil
       end
 
