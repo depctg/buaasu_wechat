@@ -12,12 +12,12 @@ class User < ApplicationRecord
       user_info = Wechat.api.user(request[:FromUserName])
       user = User.new
       user.open_id = request[:FromUserName]
-      user.remote_avatar_url = user_info['headimgurl']
+      # user.remote_avatar_url = user_info['headimgurl']
       user.nickname = user_info['nickname']
       user.save
-    elsif user.avatar.file.nil? || user.nickname.nil?
+    elsif user.nickname.nil?
       user_info = Wechat.api.user(request[:FromUserName])
-      user.remote_avatar_url = user_info['headimgurl']
+      # user.remote_avatar_url = user_info['headimgurl']
       user.nickname = user_info['nickname']
       user.save
     end

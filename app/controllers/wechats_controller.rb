@@ -197,7 +197,8 @@ class WechatsController < ApplicationController
         if user.degists.exists? degist_param
           request.reply.text "你已经有一张#{card_type}卡了！"
         else
-          user.degists.create degist_param
+          degist = Degist.new degist_param
+          user.degists << degist
           request.reply.text "恭喜你抢到了一张#{card_type}卡！"
         end
       else
