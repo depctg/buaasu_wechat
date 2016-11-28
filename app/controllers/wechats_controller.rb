@@ -193,7 +193,7 @@ class WechatsController < ApplicationController
       end
 
     if degist_param
-      if Degist.count_by('LILIC_CARD', class: card_type[:class]) < 20
+      if Degist.count_by('LILIC_CARD', class: degist_param[:class]) < 20
         user = User.from_request request
         if user.degists.exists? degist_param
           request.reply.text "你已经有一张#{card_type}卡了！"
