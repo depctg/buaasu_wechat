@@ -185,14 +185,13 @@ class WechatsController < ApplicationController
   end
 
   on :text, with: /^(测试|检测)卡/ do |request, card_type|
-    degist_param =
-      case card_type
+    degist_param = case card_type
       when '测试' then {subject: 'LILIC_CARD', class: 'TEST'}
       when '检测' then {subject: 'LILIC_CARD', class: 'TEST'}
       else nil
       end
 
-    if degist_param
+    unless degist_param.nil?
       if Degist.count_by('LILIC_CARD', class: degist_param[:class]) < 20
         user = User.from_request request
         if user.degists.exists? degist_param
