@@ -5,15 +5,15 @@ button:
    -
     type: "view"
     name: "趣味组投票"
-    url : "http://mp.weixin.qq.com/s?__biz=MjM5NzIwOTM2Nw==&mid=2653205201&idx=2&sn=b42c0b69730920639d9ef15a3b30cb8c&chksm=bd0d66a98a7aefbf1ab40c4268205377fe03a0dfefede071d2cc5084329da4439fff59a975d5&scene=0#rd"
+    url : "http://mp.weixin.qq.com/s?__biz=MjM5NzIwOTM2Nw==&mid=2653205275&idx=5&sn=de60b36f715b8f93e2d9707d8f344ef7&chksm=bd0d67638a7aee75cd11d5478f7f5c207e02873652c13c96f58f639a650aaf56dd2a9e61b191&scene=0#rd"
    -
     type: "view"
     name: "手机组投票"
-    url : "http://mp.weixin.qq.com/s?__biz=MjM5NzIwOTM2Nw==&mid=2653205201&idx=3&sn=7c4caa7be1a0a67d0bf52b672d984062&chksm=bd0d66a98a7aefbf020bc45e86cca43a10fa81186b6fccd8936a8e596747445871b00f598fe2&scene=0#rd"
+    url : "http://mp.weixin.qq.com/s?__biz=MjM5NzIwOTM2Nw==&mid=2653205275&idx=6&sn=df69515fd80384df66d632dc48d3e80d&chksm=bd0d67638a7aee757bc2fbdefc3a933c9c381588a0cdab487b1075fcb2d129028389fd67b3e7&scene=0#rd"
    -
     type: "view"
     name: "相机组投票"
-    url : "http://mp.weixin.qq.com/s?__biz=MjM5NzIwOTM2Nw==&mid=2653205201&idx=4&sn=8c59a95d0e1ea96c60df0d869a160916&chksm=bd0d66a98a7aefbfba8c8bfb8458d6c6b0e2c1126ca23239c29d416ea7c7ff44aa2dbbd50d2b&scene=0#rd"
+    url : "http://mp.weixin.qq.com/s?__biz=MjM5NzIwOTM2Nw==&mid=2653205275&idx=7&sn=1b1e4ad7188b49fc5dc9a3c36017cb2f&chksm=bd0d67638a7aee756979228f7a7e8b56b6a947ee29772c7ddf1250a31e2b8b1d4cb658ae803d&scene=0#rd"
  -
   name: "实用功能"
   sub_button:

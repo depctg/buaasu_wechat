@@ -213,6 +213,31 @@ class WechatsController < ApplicationController
     end
   end
 
+  on :text, with: /^查询(学霸|文青|吃货|单身|情侣|闺蜜|基友)卡/ do |request, card_type|
+    degist_param = case card_type
+        when '学霸' then {subject: 'LILIC_CARD', degist_class: 'XUEBA'}
+        when '文青' then {subject: 'LILIC_CARD', degist_class: 'WENQING'}
+        when '吃货' then {subject: 'LILIC_CARD', degist_class: 'CHIHUO'}
+        when '单身' then {subject: 'LILIC_CARD', degist_class: 'DANSHEN'}
+        when '情侣' then {subject: 'LILIC_CARD', degist_class: 'QINGLV'}
+        when '闺蜜' then {subject: 'LILIC_CARD', degist_class: 'GUIMI'}
+        when '基友' then {subject: 'LILIC_CARD', degist_class: 'JIYOU'}
+        else nil
+      end
+
+    unless degist_param.nil?
+      cards = Degist.where(degist_param)
+      if cards.nil?
+        request.reply.text '这里好像没有这样的卡片...'
+      else
+        res = cards.map {|c| c.user.nickname}
+        request.reply.text res.to_s
+      end
+    else
+      request.reply.text '这里好像没有这样的卡片...'
+    end
+  end
+
   # default response
   on :text do |request|
     request.reply.text '我们收到您的留言啦。说不定一会儿小编就会联系您哒~
