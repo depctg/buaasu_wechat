@@ -238,7 +238,7 @@ class WechatsController < ApplicationController
     end
   end
 
-  on :test, with: /晚会/ do |request|
+  on :text, with: /晚会/ do |request|
     user = User.from_request request
     degist_param = {subject: 'LILIC', degist_class: 'TICKET'}
     if user.degists.exists? degist_param
