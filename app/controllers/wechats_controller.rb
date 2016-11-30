@@ -238,6 +238,17 @@ class WechatsController < ApplicationController
     end
   end
 
+  on :test, with: /晚会/ do
+    user = User.from_request request
+    degist_param = {subject: 'LILIC', degist_class: 'TICKET'}
+    if user.degists.exists? degist_param
+      request.reply.text "您已经领到票了！"
+    else
+      user.degists.create degist_param
+      request.reply.text "报名成功，请于12月3日晚18:30准时到咏曼剧场参加晚会~"
+    end
+  end
+
   # default response
   on :text do |request|
     request.reply.text '我们收到您的留言啦。说不定一会儿小编就会联系您哒~
