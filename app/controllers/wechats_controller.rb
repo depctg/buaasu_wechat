@@ -36,6 +36,17 @@ class WechatsController < ApplicationController
     request.reply.image IMG_SCHOOLBUS
   end
 
+  on :text, with: /摄影大赛 (\S+) (\d+) (\d+)/ do |request, name, school_id, number|
+    user = User.from_request request
+    degist_param = {subject: 'PHOTOCON', degist_class: 'INFO', content: name + ' ' + school_id + ' ' + number}
+    if user.degists.exists? degist_param
+      request.reply.text "已经收到你的联系方式，工作人员会在近期联系你❤️"
+    else
+      user.degists.create degist_param
+      request.reply.text "已经收到你的联系方式，工作人员会在近期联系你❤️"
+    end
+  end
+
   on :text, with: /摄影大赛/ do |request|
     request.reply.text '    ● 投稿方式
     buaa2016syds@163.com
