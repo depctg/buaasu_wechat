@@ -1,0 +1,15 @@
+
+<table>
+    <tr>
+        <th>SUBJECT</th>
+        <th>CLASS</th>
+        <th>CONTENT</th>
+    </tr>
+    <% @degists.each do |d| %>
+    <tr>
+        <th><%= d.subject %></th>
+        <th><%= d.degist_class %></th>
+        <th><%= d.content %></th>
+    </tr>
+    <% end %>
+</table>

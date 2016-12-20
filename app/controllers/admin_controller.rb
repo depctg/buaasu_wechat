@@ -28,4 +28,8 @@ class AdminController < ApplicationController
   def images
     @images = File.join('public', 'uploads', 'image_messages', '*')
   end
+
+  def degists
+    @degists = Degist.all
+  end
 end

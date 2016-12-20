@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get '/admin/gmbuaa', to: 'admin#gmbuaa'
   post '/admin/gmbuaa', to: 'admin#gmupload' 
   get '/admin/gmbuaa/delete/:filename', to: 'admin#gmdelete'
+  get '/admin/degists', to: 'admin#degists'
   # Canteen activity
   get '/canteen/:degist', to: 'canteen#use'
 
