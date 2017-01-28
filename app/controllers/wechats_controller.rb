@@ -69,6 +69,11 @@ class WechatsController < ApplicationController
     3) 参赛者也需要将邮件主题采用上述“摄影大赛+参与组别+拍摄地点及拍摄内容+姓名+学号+联系方式”的方式命名。'
   end
 
+  # activity
+  on :text, with: /鸡年大吉/ do |request|
+    request.reply.text '链接https://pan.baidu.com/s/1eRVp4BK'
+  end
+
   # Tests
 
   on :text, with: /(早安|早上好)/ do |request|

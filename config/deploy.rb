@@ -20,7 +20,6 @@ set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/
 # This task is the environment that is loaded for all remote run commands, such as
 # `mina deploy` or `mina rake`.
 task :environment do
-
   invoke :'rvm:use', 'ruby-2.3.0@default'
 end
 
@@ -58,11 +57,12 @@ task :deploy do
   # run :local { say 'done' }
 end
 
-task :reset do
-  command %[export DISABLE_DATABASE_ENVIRONMENT_CHECK=1]
-  invoke :rake, 'db:migrate:reset'
-  command %[export DISABLE_DATABASE_ENVIRONMENT_CHECK=0]
-end
+
+# task :reset do
+  # command %[export DISABLE_DATABASE_ENVIRONMENT_CHECK=1]
+  # invoke :rake, 'db:migrate:reset'
+  # command %[export DISABLE_DATABASE_ENVIRONMENT_CHECK=0]
+# end
 
 # For help in making your deploy script, see the Mina documentation:
 #
