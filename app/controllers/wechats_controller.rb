@@ -62,6 +62,7 @@ class WechatsController < ApplicationController
     degist_param = {subject: 'LOCK', degist_class: '214IMG'}
 
     unless user.degists.exists? degist_param
+      user.degists.create degist_param
       pic.each do |p|
         msg = {
           touser: request[:FromUserName],
@@ -74,8 +75,6 @@ class WechatsController < ApplicationController
         Wechat.api.custom_message_send msg
       end
       sleep 10
-    else
-      user.degists.create degist_param
     end
 
   end
