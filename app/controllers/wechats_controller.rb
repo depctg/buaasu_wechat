@@ -48,25 +48,29 @@ class WechatsController < ApplicationController
   end
 
   on :text, with: /摄影大赛/ do |request|
-    request.reply.text '    ● 投稿方式
-    buaa2016syds@163.com
-    ● 投稿时间
-    2016年10月25日——2015年11月13日
-    ● 作品要求
-    1) 本次摄影大赛上交作品不限制拍摄时间，但内容必须包含北航元素。
-    2) 每幅照片不小于1MB，格式为JPEG或JPG。
-    3) 参赛者可以使用PS等修图软件处理图片（仅限轻微修图，如裁剪，提高亮度等），但不可以虚构元素，影响作品真实性，一经发现立即取消参赛资格。
-    4) 本次大赛趣味组的摄影对象为北航的动物，参加趣味组摄影的作品必须以北航的动物为主体进行摄影，动物包括但不限于猫、狗、鸟、昆虫等。
-    5) 照片必须为本人亲自拍摄，不得盗图、抄袭他人作品，一经发现取消参赛资格，且本次比赛只接受电子档作品。
-    ● 投稿说明
-    1) 本次大赛设置手机组、相机组和趣味组，手机组与相机组投稿数量每人最多可以投稿三张，趣味组每人仅限一张 。手机组和相机组投稿超过三张的，按时间先后取后三张；趣味组投稿超过一张的，以最后一张投稿为准。
-    2) 参赛者需要将自己上交的作品（或作品包）统一命名为“摄影大赛+参与组别+拍摄地点及拍摄内容+姓名+学号+联系方式”
-    例如：
-    摄影大赛+相机组+大钟广场夜景+张三+12341234+13012341234
-    摄影大赛+手机组+居民楼老教授+张三+12341234+13012341234
-    摄影大赛+趣味组+猫+张三+12341234+13012341234
-    不注明拍摄地点或拍摄内容的投稿视为无效投稿。投稿支持压缩上传和原图上传，但获奖作品未上传原图的，主办方将在之后要求作者上传原图。
-    3) 参赛者也需要将邮件主题采用上述“摄影大赛+参与组别+拍摄地点及拍摄内容+姓名+学号+联系方式”的方式命名。'
+    pic = [
+      'a_m15nS83WsRrCe0awSChEamlOYSSTSsTFzo_5D35qSsWvYs8285y5A0TE75jlty',
+      'IWMiCLaisIHiYliZ2ZIiZEQspVtFYwn7VhixVUJ044Ot1jfSpxy_2Jp0NzJeoGwK',
+      'Y_OyNPe6Uo3Q-MauAPpGrm0WkDl6ac5rh75Q0m5odkUPGdWE5WEtakd7kDvd6r5P',
+      'xDZb_L-UfNKKgdj8jvrWDTzQMddO7ctlIUOsW5oc5BzBeZZ4Cndj5phRQLy9pLi8',
+      'MMZABwdhX2DyQ3IzHJUKH0nuc1p5pkBjsFhJ9W8b0gI13G1lI8RPrIxANF6m8rQd',
+      '35lz3wGA-56X2_lUarP0aCebHN0K_PEW6mNZ1Fa8yiWy2AwANjbjhHMjpyrMVuBp',
+      'OZYCd8TacE8Ro8r6wew7K_-1AN4jnQFsopn6Qslu0F4IYDFfm_zS17_LNV-_ODW3' ]
+
+    request.reply.text ''
+
+    pic.each do |p|
+      msg = {
+        touser: request[:FromUserName],
+        msgtype: "image",
+        image:
+        {
+          media_id: p
+        }
+      }
+      Wechat.api.custom_message_send msg
+    end
+
   end
 
   # activity
