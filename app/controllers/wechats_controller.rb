@@ -47,7 +47,7 @@ class WechatsController < ApplicationController
     end
   end
 
-  on :text, with: /摄影大赛/ do |request|
+  on :text, with: /我想拥抱你/ do |request|
     pic = [
       'a_m15nS83WsRrCe0awSChEamlOYSSTSsTFzo_5D35qSsWvYs8285y5A0TE75jlty',
       'IWMiCLaisIHiYliZ2ZIiZEQspVtFYwn7VhixVUJ044Ot1jfSpxy_2Jp0NzJeoGwK',
@@ -58,17 +58,24 @@ class WechatsController < ApplicationController
       'OZYCd8TacE8Ro8r6wew7K_-1AN4jnQFsopn6Qslu0F4IYDFfm_zS17_LNV-_ODW3' ]
 
     request.reply.text ''
+    user = User.from_request request
+    degist_param = {subject: 'LOCK', degist_class: '214IMG'}
 
-    pic.each do |p|
-      msg = {
-        touser: request[:FromUserName],
-        msgtype: "image",
-        image:
-        {
-          media_id: p
+    unless user.degists.exists? degist_param
+      pic.each do |p|
+        msg = {
+          touser: request[:FromUserName],
+          msgtype: "image",
+          image:
+          {
+            media_id: p
+          }
         }
-      }
-      Wechat.api.custom_message_send msg
+        Wechat.api.custom_message_send msg
+      end
+      sleep 10
+    else
+      user.degists.create degist_param
     end
 
   end
