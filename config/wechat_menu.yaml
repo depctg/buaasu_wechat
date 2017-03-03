@@ -1,15 +1,22 @@
 button:
  -
-  type: "click"
-  name: "优惠券"
-  key: "CANTEEN"
- -
-  name: "实用功能"
+  name: "摄影大赛"
   sub_button:
    -
     type: "view"
-    name: "校&汇"
-    url : "http://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=1&sn=ac1b065a194920f3cafa5b361a0d14b9#wechat_redirect"
+    name: "趣味组投票"
+    url : "http://mp.weixin.qq.com/s?__biz=MjM5NzIwOTM2Nw==&mid=2653205275&idx=5&sn=de60b36f715b8f93e2d9707d8f344ef7&chksm=bd0d67638a7aee75cd11d5478f7f5c207e02873652c13c96f58f639a650aaf56dd2a9e61b191&scene=0#rd"
+   -
+    type: "view"
+    name: "手机组投票"
+    url : "http://mp.weixin.qq.com/s?__biz=MjM5NzIwOTM2Nw==&mid=2653205275&idx=6&sn=df69515fd80384df66d632dc48d3e80d&chksm=bd0d67638a7aee757bc2fbdefc3a933c9c381588a0cdab487b1075fcb2d129028389fd67b3e7&scene=0#rd"
+   -
+    type: "view"
+    name: "相机组投票"
+    url : "http://mp.weixin.qq.com/s?__biz=MjM5NzIwOTM2Nw==&mid=2653205275&idx=7&sn=1b1e4ad7188b49fc5dc9a3c36017cb2f&chksm=bd0d67638a7aee756979228f7a7e8b56b6a947ee29772c7ddf1250a31e2b8b1d4cb658ae803d&scene=0#rd"
+ -
+  name: "实用功能"
+  sub_button:
    -
     type: "click"
     name: "校历安排"
@@ -18,14 +25,11 @@ button:
     type: "click"
     name: "校车摆渡车"
     key: "SCHOOLBUS"
+   -
+    type: "view"
+    name: "校&汇"
+    url : "http://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=1&sn=ac1b065a194920f3cafa5b361a0d14b9#wechat_redirect"
  -
+  type: "view"
   name: "权心权意"
-  sub_button:
-   -
-    type: "view"
-    name: "权益调查"
-    url: "http://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=3&sn=9fa6c6ea30cef2c7011094bad6de1499#wechat_redirect"
-   -
-    type: "view"
-    name: "权益日志"
-    url: "http://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=2&sn=c6989be293cb4b9f71040d41e8254cbe#wechat_redirect"
+  url: "http://front.xiaoxiao.la/index.html#organization/2c8afcde-dee0-486d-bb0a-4e6bc009ed0b/index&pid=cc618fbb-888e-4163-8a2f-ea734a28e3b0"
