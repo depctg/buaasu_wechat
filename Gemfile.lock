@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: https://gems.ruby-china.org/
   specs:
     actioncable (5.0.0.1)
       actionpack (= 5.0.0.1)
@@ -215,4 +215,4 @@ DEPENDENCIES
   wechat
 
 BUNDLED WITH
-   1.12.4
+   1.13.3
