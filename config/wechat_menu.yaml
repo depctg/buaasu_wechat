@@ -1,5 +1,9 @@
 button:
  -
+　type: "view"
+  name: "体育文化节"  
+  url: "http://sports.cmwmo.com"
+ -
   name: "摄影大赛"
   sub_button:
    -
@@ -25,6 +29,10 @@ button:
     type: "click"
     name: "校车摆渡车"
     key: "SCHOOLBUS"
+   -
+    type: "click"
+    name: "空教室查询"
+    url: "http://buaakb.cmwmo.com"
    -
     type: "view"
     name: "校&汇"
