@@ -12,6 +12,7 @@ namespace :wechat do
     if r['media_id']
       Clipboard.copy(r['media_id'])
       p 'Upload success! Media id copied to Clipboard'
+      p r['media_id']
     else
       p 'Upload failed.'
     end

@@ -6,7 +6,7 @@ class WechatsController < ApplicationController
   wechat_responder
 
   # constants, access keys
-  IMG_CALENDER = 'NjRvKRIAWWC3esDN3eGYw21MvKzGBtDRKLMflOX2jeE'
+  IMG_CALENDER = 'NjRvKRIAWWC3esDN3eGYwy5pEqeli7QJ6kQQmKZtjUY'
   IMG_SCHOOLBUS = 'NjRvKRIAWWC3esDN3eGYw5V3nM0uvncD1yfGTO6tUwE'
 
   # activity => carteen
@@ -35,7 +35,9 @@ class WechatsController < ApplicationController
   on :text, with: /校车/ do |request|
     request.reply.image IMG_SCHOOLBUS
   end
-
+  on :text, with: /迎新福利/ do |request|
+    request.reply.text 'https://www.sojump.hk/jq/15672123.aspx'
+  end
   on :text, with: /摄影大赛 (\S+) (\d+) (\d+)/ do |request, name, school_id, number|
     user = User.from_request request
     degist_param = {subject: 'PHOTOCON', degist_class: 'INFO', content: name + ' ' + school_id + ' ' + number}

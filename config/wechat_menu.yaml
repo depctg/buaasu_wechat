@@ -1,8 +1,8 @@
 button:
  -
   type: "view"
-  name: "体育文化节"
-  url : "http://sports.cmwmo.com"
+  name: "迎新专区"
+  url : "https://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=5&sn=e9d77f533a088fa0900b5d2dba97d670"
  -
   name: "实用功能"
   sub_button:
@@ -10,19 +10,27 @@ button:
     type: "click"
     name: "校历安排"
     key: "CALENDER"
-   -
-    type: "click"
-    name: "校车摆渡车"
-    key: "SCHOOLBUS"
+   #-
+   # type: "click"
+   # name: "校车摆渡车"
+   # key: "SCHOOLBUS"
    -
     type: "view"
     name: "空教室查询"
     url : "http://buaakb.cmwmo.com"
    -
     type: "view"
-    name: "校&汇"
-    url : "http://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=1&sn=ac1b065a194920f3cafa5b361a0d14b9#wechat_redirect"
+    name: "迎新答疑"
+    url: "http://newbie.cmwmo.com"
+#   -
+ #   type: "view"
+  #  name: "校&汇"
+#    url : "http://mp.weixin.qq.com/mp/homepage?__biz=MjM5NzIwOTM2Nw==&hid=1&sn=ac1b065a194920f3cafa5b361a0d14b9#wechat_redirect"
  -
   type: "view"
-  name: "权心权意"
-  url: "http://front.xiaoxiao.la/index.html#organization/2c8afcde-dee0-486d-bb0a-4e6bc009ed0b/index&pid=cc618fbb-888e-4163-8a2f-ea734a28e3b0"
+  name: "线上报名"
+  url: "https://wj.qq.com/s/1532784/aaa4"
+# -
+#  type: "view"
+#  name: "权心权意"
+#  url: "http://front.xiaoxiao.la/index.html#organization/2c8afcde-dee0-486d-bb0a-4e6bc009ed0b/index&pid=cc618fbb-888e-4163-8a2f-ea734a28e3b0"
