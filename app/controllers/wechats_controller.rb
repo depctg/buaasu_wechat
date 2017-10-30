@@ -7,8 +7,8 @@ class WechatsController < ApplicationController
 
   # constants, access keys
   IMG_CALENDER = 'NjRvKRIAWWC3esDN3eGYwy5pEqeli7QJ6kQQmKZtjUY'
-  IMG_SCHOOLBUS = 'NjRvKRIAWWC3esDN3eGYw5V3nM0uvncD1yfGTO6tUwE'
-
+  IMG_SCHOOLBUS = 'NjRvKRIAWWC3esDN3eGYw2PkOtRrYxMaS-ryWe-XzIw'
+  IMG_TRANSBUS = 'NjRvKRIAWWC3esDN3eGYw81Q-TJjftV9Azmh-vWVKlM'
   # activity => carteen
 
   on :text, with: '查看优惠券' do |request|
@@ -33,7 +33,21 @@ class WechatsController < ApplicationController
   # response
 
   on :text, with: /校车/ do |request|
-    request.reply.image IMG_SCHOOLBUS
+    #request.reply.image IMG_SCHOOLBUS
+    #request.reply.image IMG_TRANSBUS
+    pic = [IMG_SCHOOLBUS,IMG_TRANSBUS]
+    pic.each do |p|
+      msg = {
+        touser: request[:FromUserName],
+        msgtype: "image",
+        image:
+          {
+            media_id: p
+          }
+        }
+      Wechat.api.custom_message_send msg
+    end
+    sleep 10 
   end
   on :text, with: /迎新福利/ do |request|
     request.reply.text 'https://www.sojump.hk/jq/15672123.aspx'
@@ -337,7 +351,27 @@ class WechatsController < ApplicationController
 
   # menu response
   on :click, with: 'SCHOOLBUS' do |request|
-    request.reply.image IMG_SCHOOLBUS
+    #request.reply.image IMG_SCHOOLBUS
+    #request.reply.image IMG_TRANSBUS
+    pic = [IMG_SCHOOLBUS,IMG_TRANSBUS]
+    msg1 = {
+      touser: request[:FromUserName],
+      msgtype: "image",
+      image:
+        {
+            media_id: IMG_SCHOOLBUS
+        }
+    }
+    msg2 = {
+        touser: request[:FromUserName],
+        msgtype: "image",
+        image:
+          {
+            media_id: IMG_TRANSBUS
+          }
+      }
+    Wechat.api.custom_message_send msg1
+    Wechat.api.custom_message_send msg2  
   end
 
   on :click, with: 'FEEDBACK' do |request|
